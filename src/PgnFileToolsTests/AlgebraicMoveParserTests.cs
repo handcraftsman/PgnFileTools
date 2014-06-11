@@ -42,6 +42,14 @@ namespace PgnFileToolsTests
         }
 
         [Test]
+        public void Should_be_able_to_parse_a_move_where_the_piece_and_file_are_specified__Rab3()
+        {
+            const string move = "Rab3";
+            var algebraic = _parser.Parse(move);
+            Verify(algebraic, PieceType.Rook, File.A, null, File.B, Row.Row3, false, false, false);
+        }
+
+        [Test]
         public void Should_be_able_to_parse_a_move_where_the_piece_and_row_are_specified__R6d4()
         {
             const string move = "R6d4";

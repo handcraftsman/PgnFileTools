@@ -87,6 +87,13 @@ namespace PgnFileTools
                 _handle = Done;
                 return true;
             }
+            var file = File.GetFor(ch);
+            if (file != null)
+            {
+                move.SourceFile = move.DestinationFile;
+                move.DestinationFile = file;
+                return true;
+            }
             if (ch == CaptureToken)
             {
                 return HandleCapture(move);
