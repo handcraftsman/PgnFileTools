@@ -6,10 +6,23 @@ namespace PgnFileTools
     public class AlgebraicMoveParser
     {
         private const char CaptureToken = 'x';
+        private const char EnPassantCaptureTokenE = 'e';
+        private const char EnPassantCaptureTokenP = 'p';
+
         private Func<char, Move, bool> _handle;
 
         private bool Done(char ch, Move move)
         {
+            if (move.PieceType == PieceType.Pawn)
+            {
+                if (move.IsCapture && ch == EnPassantCaptureTokenE)
+                {
+                    _handle = ReadEnPassantCapture;
+                    return true;
+                }
+            }
+
+            move.ErrorMessage = "Unexpected token '" + ch + "'";
             return false;
         }
 
@@ -62,6 +75,18 @@ namespace PgnFileTools
             {
                 return HandleCapture(move);
             }
+            return false;
+        }
+
+        private bool ReadEnPassantCapture(char ch, Move move)
+        {
+            if (ch == EnPassantCaptureTokenP)
+            {
+                move.IsEnPassantCapture = true;
+                _handle = Done;
+                return true;
+            }
+            move.ErrorMessage = "Unexpected token '" + ch + "', expected '" + EnPassantCaptureTokenP + "'";
             return false;
         }
 

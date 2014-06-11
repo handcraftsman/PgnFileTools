@@ -22,7 +22,7 @@ namespace PgnFileToolsTests
         {
             const string move = "Nxb2";
             var algebraic = _parser.Parse(move);
-            Verify(algebraic, PieceType.Knight, null, File.B, Row.Row2, true, false);
+            Verify(algebraic, PieceType.Knight, null, File.B, Row.Row2, true, false, false);
         }
 
         [Test]
@@ -30,7 +30,7 @@ namespace PgnFileToolsTests
         {
             const string move = "Nc3";
             var algebraic = _parser.Parse(move);
-            Verify(algebraic, PieceType.Knight, null, File.C, Row.Row3, false, false);
+            Verify(algebraic, PieceType.Knight, null, File.C, Row.Row3, false, false, false);
         }
 
         [Test]
@@ -38,7 +38,7 @@ namespace PgnFileToolsTests
         {
             const string move = "a4";
             var algebraic = _parser.Parse(move);
-            Verify(algebraic, PieceType.Pawn, null, File.A, Row.Row4, false, false);
+            Verify(algebraic, PieceType.Pawn, null, File.A, Row.Row4, false, false, false);
         }
 
         [Test]
@@ -46,16 +46,25 @@ namespace PgnFileToolsTests
         {
             const string move = "hxg6";
             var algebraic = _parser.Parse(move);
-            Verify(algebraic, PieceType.Pawn, File.H, File.G, Row.Row6, true, false);
+            Verify(algebraic, PieceType.Pawn, File.H, File.G, Row.Row6, true, false, false);
         }
 
-        private static void Verify(Move move, PieceType pieceType, File sourceFile, File destinationFile, Row destinationRow, bool isCapture, bool hasError)
+        [Test]
+        public void Should_be_able_to_parse_pawn_capture_en_passant__fxg3ep()
+        {
+            const string move = "fxg3ep";
+            var algebraic = _parser.Parse(move);
+            Verify(algebraic, PieceType.Pawn, File.F, File.G, Row.Row3, true, true, false);
+        }
+
+        private static void Verify(Move move, PieceType pieceType, File sourceFile, File destinationFile, Row destinationRow, bool isCapture, bool isEnPassantCapture, bool hasError)
         {
             move.PieceType.ShouldBeEqualTo(pieceType, "piece type");
             move.SourceFile.ShouldBeEqualTo(sourceFile, "source file");
             move.DestinationFile.ShouldBeEqualTo(destinationFile, "destination file");
             move.DestinationRow.ShouldBeEqualTo(destinationRow, "destination row");
             move.IsCapture.ShouldBeEqualTo(isCapture, "is capture");
+            move.IsEnPassantCapture.ShouldBeEqualTo(isEnPassantCapture, "is en passant capture");
             move.HasError.ShouldBeEqualTo(hasError, "has error");
         }
     }
