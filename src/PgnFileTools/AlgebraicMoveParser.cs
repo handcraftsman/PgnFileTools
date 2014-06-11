@@ -15,6 +15,8 @@ namespace PgnFileTools
 
         private bool HandleCapture(Move move)
         {
+            move.SourceFile = move.DestinationFile;
+            move.DestinationFile = null;
             _handle = ReadDestinationFile;
             move.IsCapture = true;
             return true;
@@ -55,6 +57,10 @@ namespace PgnFileTools
                 move.DestinationRow = row;
                 _handle = Done;
                 return true;
+            }
+            if (ch == CaptureToken)
+            {
+                return HandleCapture(move);
             }
             return false;
         }

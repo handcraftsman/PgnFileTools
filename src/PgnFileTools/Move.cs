@@ -7,5 +7,6 @@
         public bool HasError { get; set; }
         public bool IsCapture { get; set; }
         public PieceType PieceType { get; set; }
+        public File SourceFile { get; set; }
     }
 }

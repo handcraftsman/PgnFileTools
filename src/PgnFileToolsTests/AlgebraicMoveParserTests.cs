@@ -22,7 +22,7 @@ namespace PgnFileToolsTests
         {
             const string move = "Nxb2";
             var algebraic = _parser.Parse(move);
-            Verify(algebraic, PieceType.Knight, File.B, Row.Row2, true, false);
+            Verify(algebraic, PieceType.Knight, null, File.B, Row.Row2, true, false);
         }
 
         [Test]
@@ -30,7 +30,7 @@ namespace PgnFileToolsTests
         {
             const string move = "Nc3";
             var algebraic = _parser.Parse(move);
-            Verify(algebraic, PieceType.Knight, File.C, Row.Row3, false, false);
+            Verify(algebraic, PieceType.Knight, null, File.C, Row.Row3, false, false);
         }
 
         [Test]
@@ -38,14 +38,24 @@ namespace PgnFileToolsTests
         {
             const string move = "a4";
             var algebraic = _parser.Parse(move);
-            Verify(algebraic, PieceType.Pawn, File.A, Row.Row4, false, false);
+            Verify(algebraic, PieceType.Pawn, null, File.A, Row.Row4, false, false);
         }
 
-        private static void Verify(Move move, PieceType pieceType, File destinationfile, Row destinationRow, bool isCapture, bool hasError)
+        [Test]
+        public void Should_be_able_to_parse_pawn_capture__hxg6()
+        {
+            const string move = "hxg6";
+            var algebraic = _parser.Parse(move);
+            Verify(algebraic, PieceType.Pawn, File.H, File.G, Row.Row6, true, false);
+        }
+
+        private static void Verify(Move move, PieceType pieceType, File sourceFile, File destinationFile, Row destinationRow, bool isCapture, bool hasError)
         {
             move.PieceType.ShouldBeEqualTo(pieceType, "piece type");
-            move.DestinationFile.ShouldBeEqualTo(destinationfile, "destination file");
+            move.SourceFile.ShouldBeEqualTo(sourceFile, "source file");
+            move.DestinationFile.ShouldBeEqualTo(destinationFile, "destination file");
             move.DestinationRow.ShouldBeEqualTo(destinationRow, "destination row");
+            move.IsCapture.ShouldBeEqualTo(isCapture, "is capture");
             move.HasError.ShouldBeEqualTo(hasError, "has error");
         }
     }
