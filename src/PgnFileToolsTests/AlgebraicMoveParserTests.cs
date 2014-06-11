@@ -42,6 +42,14 @@ namespace PgnFileToolsTests
         }
 
         [Test]
+        public void Should_be_able_to_parse_a_move_where_the_piece_and_row_are_specified__R6d4()
+        {
+            const string move = "R6d4";
+            var algebraic = _parser.Parse(move);
+            Verify(algebraic, PieceType.Rook, null, Row.Row6, File.D, Row.Row4, false, false, false);
+        }
+
+        [Test]
         public void Should_be_able_to_parse_a_move_where_the_piece_is_specified__Nc3()
         {
             const string move = "Nc3";
@@ -75,6 +83,7 @@ namespace PgnFileToolsTests
 
         private static void Verify(Move move, PieceType pieceType, File sourceFile, Row sourceRow, File destinationFile, Row destinationRow, bool isCapture, bool isEnPassantCapture, bool hasError)
         {
+            move.HasError.ShouldBeEqualTo(hasError, "has error");
             move.PieceType.ShouldBeEqualTo(pieceType, "piece type");
             move.SourceFile.ShouldBeEqualTo(sourceFile, "source file");
             move.SourceRow.ShouldBeEqualTo(sourceRow, "source row");
@@ -82,7 +91,6 @@ namespace PgnFileToolsTests
             move.DestinationRow.ShouldBeEqualTo(destinationRow, "destination row");
             move.IsCapture.ShouldBeEqualTo(isCapture, "is capture");
             move.IsEnPassantCapture.ShouldBeEqualTo(isEnPassantCapture, "is en passant capture");
-            move.HasError.ShouldBeEqualTo(hasError, "has error");
         }
     }
 }

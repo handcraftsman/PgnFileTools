@@ -68,7 +68,6 @@ namespace PgnFileTools
             if (row != null)
             {
                 move.SourceRow = row;
-                _handle = ReadCapture;
                 return true;
             }
             if (ch == CaptureToken)
