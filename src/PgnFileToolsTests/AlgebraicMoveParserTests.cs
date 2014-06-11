@@ -18,6 +18,14 @@ namespace PgnFileToolsTests
         }
 
         [Test]
+        public void Should_be_able_to_parse_a_capture_where_the_piece_and_source_file_are_specified__Rhxb1()
+        {
+            const string move = "Rhxb1";
+            var algebraic = _parser.Parse(move);
+            Verify(algebraic, PieceType.Rook, File.H, File.B, Row.Row1, true, false, false);
+        }
+
+        [Test]
         public void Should_be_able_to_parse_a_capture_where_the_piece_is_specified__Nxb2()
         {
             const string move = "Nxb2";
