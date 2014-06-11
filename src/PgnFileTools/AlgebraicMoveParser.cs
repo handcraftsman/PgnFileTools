@@ -46,6 +46,15 @@ namespace PgnFileTools
             return move;
         }
 
+        private bool ReadCapture(char ch, Move move)
+        {
+            if (ch == CaptureToken)
+            {
+                return HandleCapture(move);
+            }
+            return false;
+        }
+
         private bool ReadDestinationFile(char ch, Move move)
         {
             var file = File.GetFor(ch);
@@ -55,10 +64,18 @@ namespace PgnFileTools
                 _handle = ReadDestinationRow;
                 return true;
             }
+            var row = Row.GetFor(ch);
+            if (row != null)
+            {
+                move.SourceRow = row;
+                _handle = ReadCapture;
+                return true;
+            }
             if (ch == CaptureToken)
             {
                 return HandleCapture(move);
             }
+
             return false;
         }
 
