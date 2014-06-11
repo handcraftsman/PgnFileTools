@@ -5,11 +5,19 @@ namespace PgnFileTools
 {
     public class AlgebraicMoveParser
     {
+        private const char CaptureToken = 'x';
         private Func<char, Move, bool> _handle;
 
         private bool Done(char ch, Move move)
         {
             return false;
+        }
+
+        private bool HandleCapture(Move move)
+        {
+            _handle = ReadDestinationFile;
+            move.IsCapture = true;
+            return true;
         }
 
         public Move Parse(string algebraicMove)
@@ -31,6 +39,10 @@ namespace PgnFileTools
                 move.DestinationFile = file;
                 _handle = ReadDestinationRow;
                 return true;
+            }
+            if (ch == CaptureToken)
+            {
+                return HandleCapture(move);
             }
             return false;
         }

@@ -18,11 +18,19 @@ namespace PgnFileToolsTests
         }
 
         [Test]
+        public void Should_be_able_to_parse_a_capture_where_the_piece_is_specified__Nxb2()
+        {
+            const string move = "Nxb2";
+            var algebraic = _parser.Parse(move);
+            Verify(algebraic, PieceType.Knight, File.B, Row.Row2, true, false);
+        }
+
+        [Test]
         public void Should_be_able_to_parse_a_move_where_the_piece_is_specified__Nc3()
         {
             const string move = "Nc3";
             var algebraic = _parser.Parse(move);
-            Verify(algebraic, PieceType.Knight, File.C, Row.Row3, false);
+            Verify(algebraic, PieceType.Knight, File.C, Row.Row3, false, false);
         }
 
         [Test]
@@ -30,10 +38,10 @@ namespace PgnFileToolsTests
         {
             const string move = "a4";
             var algebraic = _parser.Parse(move);
-            Verify(algebraic, PieceType.Pawn, File.A, Row.Row4, false);
+            Verify(algebraic, PieceType.Pawn, File.A, Row.Row4, false, false);
         }
 
-        private static void Verify(Move move, PieceType pieceType, File destinationfile, Row destinationRow, bool hasError)
+        private static void Verify(Move move, PieceType pieceType, File destinationfile, Row destinationRow, bool isCapture, bool hasError)
         {
             move.PieceType.ShouldBeEqualTo(pieceType, "piece type");
             move.DestinationFile.ShouldBeEqualTo(destinationfile, "destination file");
