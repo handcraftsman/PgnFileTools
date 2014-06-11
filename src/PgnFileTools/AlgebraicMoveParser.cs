@@ -14,11 +14,8 @@ namespace PgnFileTools
 
         public Move Parse(string algebraicMove)
         {
-            _handle = ReadDestinationFile;
-            var move = new Move
-                {
-                    PieceType = PieceType.Pawn
-                };
+            _handle = ReadPiece;
+            var move = new Move();
             if (algebraicMove.Select(ch => _handle(ch, move)).Any(success => !success))
             {
                 move.HasError = true;
@@ -48,6 +45,20 @@ namespace PgnFileTools
                 return true;
             }
             return false;
+        }
+
+        private bool ReadPiece(char ch, Move move)
+        {
+            var piece = PieceType.GetFor(ch);
+            if (piece != null)
+            {
+                move.PieceType = piece;
+                _handle = ReadDestinationFile;
+                return true;
+            }
+            move.PieceType = PieceType.Pawn;
+            _handle = ReadDestinationFile;
+            return ReadDestinationFile(ch, move);
         }
     }
 }

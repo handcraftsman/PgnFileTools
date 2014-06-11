@@ -9,11 +9,27 @@ namespace PgnFileToolsTests
     [TestFixture]
     public class AlgebraicMoveParserTests
     {
+        private AlgebraicMoveParser _parser;
+
+        [TestFixtureSetUp]
+        public void BeforeFirstTest()
+        {
+            _parser = new AlgebraicMoveParser();
+        }
+
         [Test]
-        public void Should_be_able_to_parse_pawn_move__a4()
+        public void Should_be_able_to_parse_a_move_where_the_piece_is_specified__Nc3()
+        {
+            const string move = "Nc3";
+            var algebraic = _parser.Parse(move);
+            Verify(algebraic, PieceType.Knight, File.C, Row.Row3, false);
+        }
+
+        [Test]
+        public void Should_be_able_to_parse_a_pawn_move__a4()
         {
             const string move = "a4";
-            var algebraic = new AlgebraicMoveParser().Parse(move);
+            var algebraic = _parser.Parse(move);
             Verify(algebraic, PieceType.Pawn, File.A, Row.Row4, false);
         }
 
