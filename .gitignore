@@ -1,0 +1,11 @@
+*.suo
+bin
+obj
+*.user
+_ReSharper.*
+dist
+*.cache
+CommonAssemblyInfo.cs
+Build.bat
+build_support
+RakeFile

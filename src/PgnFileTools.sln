@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PgnFileTools", "PgnFileTools\PgnFileTools.csproj", "{C9B678A6-54D6-44C5-BE5A-C4C070C1D187}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PgnFileToolsTests", "PgnFileToolsTests\PgnFileToolsTests.csproj", "{686D11FA-B592-40FC-A4BD-6EE29297DAB8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C9B678A6-54D6-44C5-BE5A-C4C070C1D187}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9B678A6-54D6-44C5-BE5A-C4C070C1D187}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9B678A6-54D6-44C5-BE5A-C4C070C1D187}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9B678A6-54D6-44C5-BE5A-C4C070C1D187}.Release|Any CPU.Build.0 = Release|Any CPU
+		{686D11FA-B592-40FC-A4BD-6EE29297DAB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{686D11FA-B592-40FC-A4BD-6EE29297DAB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{686D11FA-B592-40FC-A4BD-6EE29297DAB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{686D11FA-B592-40FC-A4BD-6EE29297DAB8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
