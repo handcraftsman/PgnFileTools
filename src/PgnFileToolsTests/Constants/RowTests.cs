@@ -9,6 +9,66 @@ namespace PgnFileToolsTests.Constants
     public class RowTests
     {
         [TestFixture]
+        public class When_asked_for_it_IsPromotionRow
+        {
+            [Test]
+            public void Given__Row_1__should_return__true()
+            {
+                var result = Row.Row1.IsPromotionRow;
+                result.ShouldBeTrue();
+            }
+
+            [Test]
+            public void Given__Row_2__should_return__false()
+            {
+                var result = Row.Row2.IsPromotionRow;
+                result.ShouldBeFalse();
+            }
+
+            [Test]
+            public void Given__Row_3__should_return__false()
+            {
+                var result = Row.Row3.IsPromotionRow;
+                result.ShouldBeFalse();
+            }
+
+            [Test]
+            public void Given__Row_4__should_return__false()
+            {
+                var result = Row.Row4.IsPromotionRow;
+                result.ShouldBeFalse();
+            }
+
+            [Test]
+            public void Given__Row_5__should_return__false()
+            {
+                var result = Row.Row5.IsPromotionRow;
+                result.ShouldBeFalse();
+            }
+
+            [Test]
+            public void Given__Row_6__should_return__false()
+            {
+                var result = Row.Row6.IsPromotionRow;
+                result.ShouldBeFalse();
+            }
+
+            [Test]
+            public void Given__Row_7__should_return__false()
+            {
+                var result = Row.Row7.IsPromotionRow;
+                result.ShouldBeFalse();
+            }
+
+            [Test]
+            public void Given__Row_8__should_return__true()
+            {
+                var result = Row.Row8.IsPromotionRow;
+                result.ShouldBeTrue();
+            }
+        }
+
+        [TestFixture]
         public class When_asked_for_its_Symbol
         {
             [Test]

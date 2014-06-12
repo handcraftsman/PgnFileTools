@@ -8,6 +8,7 @@ namespace PgnFileTools
         private const char CaptureToken = 'x';
         private const char EnPassantCaptureTokenE = 'e';
         private const char EnPassantCaptureTokenP = 'p';
+        private const char PromotionToken = '=';
 
         private Func<char, Move, bool> _handle;
 
@@ -15,6 +16,10 @@ namespace PgnFileTools
         {
             if (move.PieceType == PieceType.Pawn)
             {
+                if (move.DestinationRow.IsPromotionRow)
+                {
+                    return ReadPromotion(ch, move);
+                }
                 if (move.IsCapture && ch == EnPassantCaptureTokenE)
                 {
                     _handle = ReadEnPassantCapture;
@@ -125,6 +130,31 @@ namespace PgnFileTools
             move.PieceType = PieceType.Pawn;
             _handle = ReadDestinationFile;
             return ReadDestinationFile(ch, move);
+        }
+
+        private bool ReadPromotion(char ch, Move move)
+        {
+            if (ch == PromotionToken)
+            {
+                move.IsPromotion = true;
+                _handle = ReadPromotionPiece;
+                return true;
+            }
+            return ReadPromotionPiece(ch, move);
+        }
+
+        private bool ReadPromotionPiece(char ch, Move move)
+        {
+            var piece = PieceType.GetFor(ch);
+            if (piece != null)
+            {
+                move.IsPromotion = true;
+                move.PromotionPiece = piece;
+                _handle = Done;
+                return true;
+            }
+            move.ErrorMessage = "Unexpected token '" + ch + "' reading promotion.";
+            return false;
         }
     }
 }

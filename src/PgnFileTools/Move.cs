@@ -8,7 +8,9 @@
         public bool HasError { get; set; }
         public bool IsCapture { get; set; }
         public bool IsEnPassantCapture { get; set; }
+        public bool IsPromotion { get; set; }
         public PieceType PieceType { get; set; }
+        public PieceType PromotionPiece { get; set; }
         public File SourceFile { get; set; }
         public Row SourceRow { get; set; }
     }
