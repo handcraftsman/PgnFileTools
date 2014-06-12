@@ -6,6 +6,7 @@ namespace PgnFileTools
     public class AlgebraicMoveParser
     {
         private const char CaptureToken = 'x';
+        private const char CheckToken = '+';
         private const char EnPassantCaptureTokenE = 'e';
         private const char EnPassantCaptureTokenP = 'p';
         private const char PromotionToken = '=';
@@ -27,6 +28,11 @@ namespace PgnFileTools
                 }
             }
 
+            if (ch == CheckToken)
+            {
+                return HandleCheck(move);
+            }
+
             move.ErrorMessage = "Unexpected token '" + ch + "'";
             return false;
         }
@@ -37,6 +43,12 @@ namespace PgnFileTools
             move.DestinationFile = null;
             _handle = ReadDestinationFile;
             move.IsCapture = true;
+            return true;
+        }
+
+        private static bool HandleCheck(Move move)
+        {
+            move.IsCheck = true;
             return true;
         }
 
@@ -54,15 +66,6 @@ namespace PgnFileTools
                 move.ErrorMessage = "Unexpected end of move text.";
             }
             return move;
-        }
-
-        private bool ReadCapture(char ch, Move move)
-        {
-            if (ch == CaptureToken)
-            {
-                return HandleCapture(move);
-            }
-            return false;
         }
 
         private bool ReadDestinationFile(char ch, Move move)

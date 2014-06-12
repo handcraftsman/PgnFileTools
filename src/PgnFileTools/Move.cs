@@ -7,6 +7,7 @@
         public string ErrorMessage { get; set; }
         public bool HasError { get; set; }
         public bool IsCapture { get; set; }
+        public bool IsCheck { get; set; }
         public bool IsEnPassantCapture { get; set; }
         public bool IsPromotion { get; set; }
         public PieceType PieceType { get; set; }
