@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlgebraicMoveParserTests.cs" />
+    <Compile Include="Constants\CastleTypeTests.cs" />
     <Compile Include="Constants\PieceTypeTests.cs" />
     <Compile Include="Constants\FileTests.cs" />
     <Compile Include="Constants\RowTests.cs" />

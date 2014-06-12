@@ -2,11 +2,13 @@
 {
     public class Move
     {
+        public CastleType CastleType { get; set; }
         public File DestinationFile { get; set; }
         public Row DestinationRow { get; set; }
         public string ErrorMessage { get; set; }
         public bool HasError { get; set; }
         public bool IsCapture { get; set; }
+        public bool IsCastle { get; set; }
         public bool IsCheck { get; set; }
         public bool IsDoubleCheck { get; set; }
         public bool IsEnPassantCapture { get; set; }

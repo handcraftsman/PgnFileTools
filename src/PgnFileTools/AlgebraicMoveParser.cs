@@ -6,6 +6,8 @@ namespace PgnFileTools
     public class AlgebraicMoveParser
     {
         private const char CaptureToken = 'x';
+        private const char CastleDashToken = '-';
+        private const char CastleToken = 'O';
         private const char CheckToken = '+';
         private const char EnPassantCaptureTokenE = 'e';
         private const char EnPassantCaptureTokenP = 'p';
@@ -24,6 +26,11 @@ namespace PgnFileTools
             if (ch == MateToken)
             {
                 return HandleMate(move);
+            }
+
+            if (ch == CastleDashToken)
+            {
+                return ReadQueenCastleDash(ch, move);
             }
 
             if (move.PieceType == PieceType.Pawn)
@@ -87,6 +94,17 @@ namespace PgnFileTools
             return move;
         }
 
+        private bool ReadCastleEnd(char ch, Move move)
+        {
+            if (ch == CastleToken)
+            {
+                _handle = Done;
+                return true;
+            }
+            move.ErrorMessage = "Unexpected character '" + ch + "' reading Castle";
+            return false;
+        }
+
         private bool ReadDestinationFile(char ch, Move move)
         {
             var file = File.GetFor(ch);
@@ -105,6 +123,11 @@ namespace PgnFileTools
             if (ch == CaptureToken)
             {
                 return HandleCapture(move);
+            }
+            if (ch == CastleToken)
+            {
+                _handle = ReadKingCastleDash;
+                return true;
             }
 
             return false;
@@ -145,8 +168,26 @@ namespace PgnFileTools
             return false;
         }
 
+        private bool ReadKingCastleDash(char ch, Move move)
+        {
+            if (ch == CastleDashToken)
+            {
+                move.IsCastle = true;
+                move.CastleType = CastleType.KingSide;
+                _handle = ReadCastleEnd;
+                return true;
+            }
+            move.ErrorMessage = "Unexpected character '" + ch + "' reading Castle";
+            return false;
+        }
+
         private bool ReadPiece(char ch, Move move)
         {
+            if (ch == CastleToken)
+            {
+                _handle = ReadKingCastleDash;
+                return true;
+            }
             var piece = PieceType.GetFor(ch);
             if (piece != null && piece.Symbol == ch + "")
             {
@@ -180,6 +221,18 @@ namespace PgnFileTools
                 return true;
             }
             move.ErrorMessage = "Unexpected token '" + ch + "' reading promotion.";
+            return false;
+        }
+
+        private bool ReadQueenCastleDash(char ch, Move move)
+        {
+            if (ch == CastleDashToken)
+            {
+                move.CastleType = CastleType.QueenSide;
+                _handle = ReadCastleEnd;
+                return true;
+            }
+            move.ErrorMessage = "Unexpected character '" + ch + "' reading Castle";
             return false;
         }
     }

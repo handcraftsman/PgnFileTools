@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlgebraicMoveParser.cs" />
+    <Compile Include="Constants\CastleType.cs" />
     <Compile Include="Constants\File.cs" />
     <Compile Include="Constants\PieceType.cs" />
     <Compile Include="Move.cs" />
