@@ -15,6 +15,11 @@ namespace PgnFileTools
 
         private bool Done(char ch, Move move)
         {
+            if (ch == CheckToken)
+            {
+                return HandleCheck(move);
+            }
+
             if (move.PieceType == PieceType.Pawn)
             {
                 if (move.DestinationRow.IsPromotionRow)
@@ -26,11 +31,6 @@ namespace PgnFileTools
                     _handle = ReadEnPassantCapture;
                     return true;
                 }
-            }
-
-            if (ch == CheckToken)
-            {
-                return HandleCheck(move);
             }
 
             move.ErrorMessage = "Unexpected token '" + ch + "'";
@@ -48,7 +48,14 @@ namespace PgnFileTools
 
         private static bool HandleCheck(Move move)
         {
-            move.IsCheck = true;
+            if (move.IsCheck)
+            {
+                move.IsDoubleCheck = true;
+            }
+            else
+            {
+                move.IsCheck = true;
+            }
             return true;
         }
 
