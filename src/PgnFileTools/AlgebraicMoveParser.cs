@@ -9,6 +9,7 @@ namespace PgnFileTools
         private const char CheckToken = '+';
         private const char EnPassantCaptureTokenE = 'e';
         private const char EnPassantCaptureTokenP = 'p';
+        private const char MateToken = '#';
         private const char PromotionToken = '=';
 
         private Func<char, Move, bool> _handle;
@@ -18,6 +19,11 @@ namespace PgnFileTools
             if (ch == CheckToken)
             {
                 return HandleCheck(move);
+            }
+
+            if (ch == MateToken)
+            {
+                return HandleMate(move);
             }
 
             if (move.PieceType == PieceType.Pawn)
@@ -56,6 +62,12 @@ namespace PgnFileTools
             {
                 move.IsCheck = true;
             }
+            return true;
+        }
+
+        private static bool HandleMate(Move move)
+        {
+            move.IsMate = true;
             return true;
         }
 

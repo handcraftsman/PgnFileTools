@@ -10,6 +10,7 @@
         public bool IsCheck { get; set; }
         public bool IsDoubleCheck { get; set; }
         public bool IsEnPassantCapture { get; set; }
+        public bool IsMate { get; set; }
         public bool IsPromotion { get; set; }
         public PieceType PieceType { get; set; }
         public PieceType PromotionPiece { get; set; }

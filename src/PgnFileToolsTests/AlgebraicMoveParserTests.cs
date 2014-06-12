@@ -22,7 +22,7 @@ namespace PgnFileToolsTests
         {
             const string move = "Rhxb1";
             var algebraic = _parser.Parse(move);
-            Verify(algebraic, PieceType.Rook, File.H, null, File.B, Row.Row1, true, false, false, null, false, false, false);
+            Verify(algebraic, PieceType.Rook, File.H, null, File.B, Row.Row1, true, false, false, null, false, false, false, false);
         }
 
         [Test]
@@ -30,7 +30,7 @@ namespace PgnFileToolsTests
         {
             const string move = "R8xa4";
             var algebraic = _parser.Parse(move);
-            Verify(algebraic, PieceType.Rook, null, Row.Row8, File.A, Row.Row4, true, false, false, null, false, false, false);
+            Verify(algebraic, PieceType.Rook, null, Row.Row8, File.A, Row.Row4, true, false, false, null, false, false, false, false);
         }
 
         [Test]
@@ -38,7 +38,7 @@ namespace PgnFileToolsTests
         {
             const string move = "Nxb2";
             var algebraic = _parser.Parse(move);
-            Verify(algebraic, PieceType.Knight, null, null, File.B, Row.Row2, true, false, false, null, false, false, false);
+            Verify(algebraic, PieceType.Knight, null, null, File.B, Row.Row2, true, false, false, null, false, false, false, false);
         }
 
         [Test]
@@ -46,7 +46,7 @@ namespace PgnFileToolsTests
         {
             const string move = "f5+";
             var algebraic = _parser.Parse(move);
-            Verify(algebraic, PieceType.Pawn, null, null, File.F, Row.Row5, false, false, false, null, true, false, false);
+            Verify(algebraic, PieceType.Pawn, null, null, File.F, Row.Row5, false, false, false, null, true, false, false, false);
         }
 
         [Test]
@@ -54,7 +54,15 @@ namespace PgnFileToolsTests
         {
             const string move = "f1N++";
             var algebraic = _parser.Parse(move);
-            Verify(algebraic, PieceType.Pawn, null, null, File.F, Row.Row1, false, false, true, PieceType.Knight, true, true, false);
+            Verify(algebraic, PieceType.Pawn, null, null, File.F, Row.Row1, false, false, true, PieceType.Knight, true, true, false, false);
+        }
+
+        [Test]
+        public void Should_be_able_to_parse_a_move_that_mates_the_King__a2_SHARP()
+        {
+            const string move = "a2#";
+            var algebraic = _parser.Parse(move);
+            Verify(algebraic, PieceType.Pawn, null, null, File.A, Row.Row2, false, false, false, null, false, false, true, false);
         }
 
         [Test]
@@ -62,7 +70,7 @@ namespace PgnFileToolsTests
         {
             const string move = "Rab3";
             var algebraic = _parser.Parse(move);
-            Verify(algebraic, PieceType.Rook, File.A, null, File.B, Row.Row3, false, false, false, null, false, false, false);
+            Verify(algebraic, PieceType.Rook, File.A, null, File.B, Row.Row3, false, false, false, null, false, false, false, false);
         }
 
         [Test]
@@ -70,7 +78,7 @@ namespace PgnFileToolsTests
         {
             const string move = "R6d4";
             var algebraic = _parser.Parse(move);
-            Verify(algebraic, PieceType.Rook, null, Row.Row6, File.D, Row.Row4, false, false, false, null, false, false, false);
+            Verify(algebraic, PieceType.Rook, null, Row.Row6, File.D, Row.Row4, false, false, false, null, false, false, false, false);
         }
 
         [Test]
@@ -78,7 +86,7 @@ namespace PgnFileToolsTests
         {
             const string move = "Nc3";
             var algebraic = _parser.Parse(move);
-            Verify(algebraic, PieceType.Knight, null, null, File.C, Row.Row3, false, false, false, null, false, false, false);
+            Verify(algebraic, PieceType.Knight, null, null, File.C, Row.Row3, false, false, false, null, false, false, false, false);
         }
 
         [Test]
@@ -86,7 +94,7 @@ namespace PgnFileToolsTests
         {
             const string move = "a4";
             var algebraic = _parser.Parse(move);
-            Verify(algebraic, PieceType.Pawn, null, null, File.A, Row.Row4, false, false, false, null, false, false, false);
+            Verify(algebraic, PieceType.Pawn, null, null, File.A, Row.Row4, false, false, false, null, false, false, false, false);
         }
 
         [Test]
@@ -94,7 +102,7 @@ namespace PgnFileToolsTests
         {
             const string move = "hxg6";
             var algebraic = _parser.Parse(move);
-            Verify(algebraic, PieceType.Pawn, File.H, null, File.G, Row.Row6, true, false, false, null, false, false, false);
+            Verify(algebraic, PieceType.Pawn, File.H, null, File.G, Row.Row6, true, false, false, null, false, false, false, false);
         }
 
         [Test]
@@ -102,7 +110,7 @@ namespace PgnFileToolsTests
         {
             const string move = "exd8=Q";
             var algebraic = _parser.Parse(move);
-            Verify(algebraic, PieceType.Pawn, File.E, null, File.D, Row.Row8, true, false, true, PieceType.Queen, false, false, false);
+            Verify(algebraic, PieceType.Pawn, File.E, null, File.D, Row.Row8, true, false, true, PieceType.Queen, false, false, false, false);
         }
 
         [Test]
@@ -110,7 +118,7 @@ namespace PgnFileToolsTests
         {
             const string move = "fxg3ep";
             var algebraic = _parser.Parse(move);
-            Verify(algebraic, PieceType.Pawn, File.F, null, File.G, Row.Row3, true, true, false, null, false, false, false);
+            Verify(algebraic, PieceType.Pawn, File.F, null, File.G, Row.Row3, true, true, false, null, false, false, false, false);
         }
 
         [Test]
@@ -118,7 +126,7 @@ namespace PgnFileToolsTests
         {
             const string move = "c1Q";
             var algebraic = _parser.Parse(move);
-            Verify(algebraic, PieceType.Pawn, null, null, File.C, Row.Row1, false, false, true, PieceType.Queen, false, false, false);
+            Verify(algebraic, PieceType.Pawn, null, null, File.C, Row.Row1, false, false, true, PieceType.Queen, false, false, false, false);
         }
 
         [Test]
@@ -126,7 +134,7 @@ namespace PgnFileToolsTests
         {
             const string move = "c1=Q";
             var algebraic = _parser.Parse(move);
-            Verify(algebraic, PieceType.Pawn, null, null, File.C, Row.Row1, false, false, true, PieceType.Queen, false, false, false);
+            Verify(algebraic, PieceType.Pawn, null, null, File.C, Row.Row1, false, false, true, PieceType.Queen, false, false, false, false);
         }
 
         [Test]
@@ -138,7 +146,7 @@ namespace PgnFileToolsTests
             algebraic.ErrorMessage.ShouldNotBeNullOrEmpty();
         }
 
-        private static void Verify(Move move, PieceType pieceType, File sourceFile, Row sourceRow, File destinationFile, Row destinationRow, bool isCapture, bool isEnPassantCapture, bool isPromotion, PieceType promotionPiece, bool isCheck, bool isDoubleCheck, bool hasError)
+        private static void Verify(Move move, PieceType pieceType, File sourceFile, Row sourceRow, File destinationFile, Row destinationRow, bool isCapture, bool isEnPassantCapture, bool isPromotion, PieceType promotionPiece, bool isCheck, bool isDoubleCheck, bool isMate, bool hasError)
         {
             move.HasError.ShouldBeEqualTo(hasError, "has error");
             move.PieceType.ShouldBeEqualTo(pieceType, "piece type");
@@ -152,6 +160,7 @@ namespace PgnFileToolsTests
             move.PromotionPiece.ShouldBeEqualTo(promotionPiece, "promotion piece");
             move.IsCheck.ShouldBeEqualTo(isCheck, "is check");
             move.IsDoubleCheck.ShouldBeEqualTo(isDoubleCheck, "is double check");
+            move.IsMate.ShouldBeEqualTo(isMate, "is mate");
         }
     }
 }
