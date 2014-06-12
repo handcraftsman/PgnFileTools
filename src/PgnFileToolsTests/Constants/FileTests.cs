@@ -72,6 +72,62 @@ namespace PgnFileToolsTests.Constants
         public class When_asked_to_GetFor
         {
             [Test]
+            public void Given__A__should_get__null()
+            {
+                var result = File.GetFor('A');
+                result.ShouldBeNull();
+            }
+
+            [Test]
+            public void Given__B__should_get__null()
+            {
+                var result = File.GetFor('B');
+                result.ShouldBeNull();
+            }
+
+            [Test]
+            public void Given__C__should_get__null()
+            {
+                var result = File.GetFor('C');
+                result.ShouldBeNull();
+            }
+
+            [Test]
+            public void Given__D__should_get__null()
+            {
+                var result = File.GetFor('D');
+                result.ShouldBeNull();
+            }
+
+            [Test]
+            public void Given__E__should_get__null()
+            {
+                var result = File.GetFor('E');
+                result.ShouldBeNull();
+            }
+
+            [Test]
+            public void Given__F__should_get__null()
+            {
+                var result = File.GetFor('F');
+                result.ShouldBeNull();
+            }
+
+            [Test]
+            public void Given__G__should_get__null()
+            {
+                var result = File.GetFor('G');
+                result.ShouldBeNull();
+            }
+
+            [Test]
+            public void Given__H__should_get__null()
+            {
+                var result = File.GetFor('H');
+                result.ShouldBeNull();
+            }
+
+            [Test]
             public void Given__a__should_get__File_A()
             {
                 var result = File.GetFor('a');

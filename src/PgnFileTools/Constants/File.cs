@@ -23,7 +23,8 @@ namespace PgnFileTools
 
         public static File GetFor(char ch)
         {
-            return GetFor(ch + "");
+            var file = GetFor(ch + "");
+            return (file != null && file.Symbol[0] == ch) ? file : null;
         }
     }
 }
