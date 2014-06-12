@@ -1,3 +1,7 @@
+using System;
+using System.Linq;
+using System.Text.RegularExpressions;
+
 using FluentAssert;
 
 using NUnit.Framework;
@@ -15,6 +19,57 @@ namespace PgnFileToolsTests
         public void BeforeFirstTest()
         {
             _parser = new AlgebraicMoveParser();
+        }
+
+        [Test]
+        [Explicit]
+        public void FuzzIt()
+        {
+            var regex = new Regex(@"^(([NBRQK]?[a-h]?[1-8]?x?[a-h][1-8])|([a-h]?[1-8]?x?[a-h][1-8](?:\=[NBRQK]))|(O(-?O){1,2}))(\+{1,2}|#)?$");
+            const string possibleCharacters = "NBQKRabcdefgh12345678xO-+#";
+            var random = new Random();
+
+            Func<string> generateMove = () => new String(possibleCharacters.Generate().Take(random.Next(2, 10)).ToArray());
+
+            var anyFailed = false;
+            for (var i = 0; i < 10000; i++)
+            {
+                var move = generateMove();
+                try
+                {
+                    var result = _parser.Parse(move);
+                    if (!result.HasError && !regex.IsMatch(move))
+                    {
+                        Console.WriteLine(move);
+                        anyFailed = true;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(move);
+                    anyFailed = true;
+                    Console.WriteLine(e);
+                }
+            }
+            anyFailed.ShouldBeFalse();
+        }
+
+        [Test]
+        public void Given_a_destination_followed_by_a_partial_castle__c3_DASH_O__Should_set_HasError_to__true()
+        {
+            const string move = "c3-O";
+            var algebraic = _parser.Parse(move);
+            algebraic.HasError.ShouldBeTrue();
+            algebraic.ErrorMessage.ShouldNotBeNullOrEmpty();
+        }
+
+        [Test]
+        public void Given_and_incomplete_move__Should_set_HasError_to__true()
+        {
+            const string move = "c";
+            var algebraic = _parser.Parse(move);
+            algebraic.HasError.ShouldBeTrue();
+            algebraic.ErrorMessage.ShouldNotBeNullOrEmpty();
         }
 
         [Test]
@@ -465,15 +520,6 @@ namespace PgnFileToolsTests
                     IsMate = false,
                     HasError = false
                 });
-        }
-
-        [Test]
-        public void Should_set_HasError_to__true__for_an_incomplete_move()
-        {
-            const string move = "c";
-            var algebraic = _parser.Parse(move);
-            algebraic.HasError.ShouldBeTrue();
-            algebraic.ErrorMessage.ShouldNotBeNullOrEmpty();
         }
 
         private static void Verify(Move move, Move expected)

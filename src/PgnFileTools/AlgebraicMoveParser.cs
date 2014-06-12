@@ -28,11 +28,6 @@ namespace PgnFileTools
                 return HandleMate(move);
             }
 
-            if (ch == CastleDashToken)
-            {
-                return ReadQueenCastleDash(ch, move);
-            }
-
             if (move.PieceType == PieceType.Pawn)
             {
                 if (move.DestinationRow.IsPromotionRow)
@@ -86,7 +81,7 @@ namespace PgnFileTools
             {
                 move.HasError = true;
             }
-            if (_handle != Done)
+            if (!new Func<char, Move, bool>[] { Done, ReadQueenCastleDash }.Contains(_handle))
             {
                 move.HasError = true;
                 move.ErrorMessage = "Unexpected end of move text.";
@@ -98,7 +93,7 @@ namespace PgnFileTools
         {
             if (ch == CastleToken)
             {
-                _handle = Done;
+                _handle = ReadQueenCastleDash;
                 return true;
             }
             move.ErrorMessage = "Unexpected character '" + ch + "' reading Castle";
@@ -189,7 +184,7 @@ namespace PgnFileTools
                 return true;
             }
             var piece = PieceType.GetFor(ch);
-            if (piece != null && piece.Symbol == ch + "")
+            if (piece != null)
             {
                 move.PieceType = piece;
                 _handle = ReadDestinationFile;
@@ -232,8 +227,8 @@ namespace PgnFileTools
                 _handle = ReadCastleEnd;
                 return true;
             }
-            move.ErrorMessage = "Unexpected character '" + ch + "' reading Castle";
-            return false;
+            _handle = Done;
+            return Done(ch, move);
         }
     }
 }
