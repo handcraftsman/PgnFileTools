@@ -22,7 +22,24 @@ namespace PgnFileToolsTests
         {
             const string move = "O-O";
             var algebraic = _parser.Parse(move);
-            Verify(algebraic, null, null, null, null, null, false, false, false, null, true, CastleType.KingSide, false, false, false, false);
+            Verify(algebraic, new Move
+                {
+                    PieceType = null,
+                    SourceFile = null,
+                    SourceRow = null,
+                    DestinationFile = null,
+                    DestinationRow = null,
+                    IsCapture = false,
+                    IsEnPassantCapture = false,
+                    IsPromotion = false,
+                    PromotionPiece = null,
+                    IsCastle = true,
+                    CastleType = CastleType.KingSide,
+                    IsCheck = false,
+                    IsDoubleCheck = false,
+                    IsMate = false,
+                    HasError = false
+                });
         }
 
         [Test]
@@ -30,7 +47,24 @@ namespace PgnFileToolsTests
         {
             const string move = "O-O-O";
             var algebraic = _parser.Parse(move);
-            Verify(algebraic, null, null, null, null, null, false, false, false, null, true, CastleType.QueenSide, false, false, false, false);
+            Verify(algebraic, new Move
+                {
+                    PieceType = null,
+                    SourceFile = null,
+                    SourceRow = null,
+                    DestinationFile = null,
+                    DestinationRow = null,
+                    IsCapture = false,
+                    IsEnPassantCapture = false,
+                    IsPromotion = false,
+                    PromotionPiece = null,
+                    IsCastle = true,
+                    CastleType = CastleType.QueenSide,
+                    IsCheck = false,
+                    IsDoubleCheck = false,
+                    IsMate = false,
+                    HasError = false
+                });
         }
 
         [Test]
@@ -38,7 +72,24 @@ namespace PgnFileToolsTests
         {
             const string move = "Rhxb1";
             var algebraic = _parser.Parse(move);
-            Verify(algebraic, PieceType.Rook, File.H, null, File.B, Row.Row1, true, false, false, null, false, null, false, false, false, false);
+            Verify(algebraic, new Move
+                {
+                    PieceType = PieceType.Rook,
+                    SourceFile = File.H,
+                    SourceRow = null,
+                    DestinationFile = File.B,
+                    DestinationRow = Row.Row1,
+                    IsCapture = true,
+                    IsEnPassantCapture = false,
+                    IsPromotion = false,
+                    PromotionPiece = null,
+                    IsCastle = false,
+                    CastleType = null,
+                    IsCheck = false,
+                    IsDoubleCheck = false,
+                    IsMate = false,
+                    HasError = false
+                });
         }
 
         [Test]
@@ -46,7 +97,24 @@ namespace PgnFileToolsTests
         {
             const string move = "R8xa4";
             var algebraic = _parser.Parse(move);
-            Verify(algebraic, PieceType.Rook, null, Row.Row8, File.A, Row.Row4, true, false, false, null, false, null, false, false, false, false);
+            Verify(algebraic, new Move
+                {
+                    PieceType = PieceType.Rook,
+                    SourceFile = null,
+                    SourceRow = Row.Row8,
+                    DestinationFile = File.A,
+                    DestinationRow = Row.Row4,
+                    IsCapture = true,
+                    IsEnPassantCapture = false,
+                    IsPromotion = false,
+                    PromotionPiece = null,
+                    IsCastle = false,
+                    CastleType = null,
+                    IsCheck = false,
+                    IsDoubleCheck = false,
+                    IsMate = false,
+                    HasError = false
+                });
         }
 
         [Test]
@@ -54,7 +122,24 @@ namespace PgnFileToolsTests
         {
             const string move = "Nxb2";
             var algebraic = _parser.Parse(move);
-            Verify(algebraic, PieceType.Knight, null, null, File.B, Row.Row2, true, false, false, null, false, null, false, false, false, false);
+            Verify(algebraic, new Move
+                {
+                    PieceType = PieceType.Knight,
+                    SourceFile = null,
+                    SourceRow = null,
+                    DestinationFile = File.B,
+                    DestinationRow = Row.Row2,
+                    IsCapture = true,
+                    IsEnPassantCapture = false,
+                    IsPromotion = false,
+                    PromotionPiece = null,
+                    IsCastle = false,
+                    CastleType = null,
+                    IsCheck = false,
+                    IsDoubleCheck = false,
+                    IsMate = false,
+                    HasError = false
+                });
         }
 
         [Test]
@@ -62,7 +147,24 @@ namespace PgnFileToolsTests
         {
             const string move = "f5+";
             var algebraic = _parser.Parse(move);
-            Verify(algebraic, PieceType.Pawn, null, null, File.F, Row.Row5, false, false, false, null, false, null, true, false, false, false);
+            Verify(algebraic, new Move
+                {
+                    PieceType = PieceType.Pawn,
+                    SourceFile = null,
+                    SourceRow = null,
+                    DestinationFile = File.F,
+                    DestinationRow = Row.Row5,
+                    IsCapture = false,
+                    IsEnPassantCapture = false,
+                    IsPromotion = false,
+                    PromotionPiece = null,
+                    IsCastle = false,
+                    CastleType = null,
+                    IsCheck = true,
+                    IsDoubleCheck = false,
+                    IsMate = false,
+                    HasError = false
+                });
         }
 
         [Test]
@@ -70,7 +172,24 @@ namespace PgnFileToolsTests
         {
             const string move = "f1N++";
             var algebraic = _parser.Parse(move);
-            Verify(algebraic, PieceType.Pawn, null, null, File.F, Row.Row1, false, false, true, PieceType.Knight, false, null, true, true, false, false);
+            Verify(algebraic, new Move
+                {
+                    PieceType = PieceType.Pawn,
+                    SourceFile = null,
+                    SourceRow = null,
+                    DestinationFile = File.F,
+                    DestinationRow = Row.Row1,
+                    IsCapture = false,
+                    IsEnPassantCapture = false,
+                    IsPromotion = true,
+                    PromotionPiece = PieceType.Knight,
+                    IsCastle = false,
+                    CastleType = null,
+                    IsCheck = true,
+                    IsDoubleCheck = true,
+                    IsMate = false,
+                    HasError = false
+                });
         }
 
         [Test]
@@ -78,7 +197,24 @@ namespace PgnFileToolsTests
         {
             const string move = "a2#";
             var algebraic = _parser.Parse(move);
-            Verify(algebraic, PieceType.Pawn, null, null, File.A, Row.Row2, false, false, false, null, false, null, false, false, true, false);
+            Verify(algebraic, new Move
+                {
+                    PieceType = PieceType.Pawn,
+                    SourceFile = null,
+                    SourceRow = null,
+                    DestinationFile = File.A,
+                    DestinationRow = Row.Row2,
+                    IsCapture = false,
+                    IsEnPassantCapture = false,
+                    IsPromotion = false,
+                    PromotionPiece = null,
+                    IsCastle = false,
+                    CastleType = null,
+                    IsCheck = false,
+                    IsDoubleCheck = false,
+                    IsMate = true,
+                    HasError = false
+                });
         }
 
         [Test]
@@ -86,7 +222,24 @@ namespace PgnFileToolsTests
         {
             const string move = "Rab3";
             var algebraic = _parser.Parse(move);
-            Verify(algebraic, PieceType.Rook, File.A, null, File.B, Row.Row3, false, false, false, null, false, null, false, false, false, false);
+            Verify(algebraic, new Move
+                {
+                    PieceType = PieceType.Rook,
+                    SourceFile = File.A,
+                    SourceRow = null,
+                    DestinationFile = File.B,
+                    DestinationRow = Row.Row3,
+                    IsCapture = false,
+                    IsEnPassantCapture = false,
+                    IsPromotion = false,
+                    PromotionPiece = null,
+                    IsCastle = false,
+                    CastleType = null,
+                    IsCheck = false,
+                    IsDoubleCheck = false,
+                    IsMate = false,
+                    HasError = false
+                });
         }
 
         [Test]
@@ -94,7 +247,24 @@ namespace PgnFileToolsTests
         {
             const string move = "R6d4";
             var algebraic = _parser.Parse(move);
-            Verify(algebraic, PieceType.Rook, null, Row.Row6, File.D, Row.Row4, false, false, false, null, false, null, false, false, false, false);
+            Verify(algebraic, new Move
+                {
+                    PieceType = PieceType.Rook,
+                    SourceFile = null,
+                    SourceRow = Row.Row6,
+                    DestinationFile = File.D,
+                    DestinationRow = Row.Row4,
+                    IsCapture = false,
+                    IsEnPassantCapture = false,
+                    IsPromotion = false,
+                    PromotionPiece = null,
+                    IsCastle = false,
+                    CastleType = null,
+                    IsCheck = false,
+                    IsDoubleCheck = false,
+                    IsMate = false,
+                    HasError = false
+                });
         }
 
         [Test]
@@ -102,7 +272,24 @@ namespace PgnFileToolsTests
         {
             const string move = "Nc3";
             var algebraic = _parser.Parse(move);
-            Verify(algebraic, PieceType.Knight, null, null, File.C, Row.Row3, false, false, false, null, false, null, false, false, false, false);
+            Verify(algebraic, new Move
+                {
+                    PieceType = PieceType.Knight,
+                    SourceFile = null,
+                    SourceRow = null,
+                    DestinationFile = File.C,
+                    DestinationRow = Row.Row3,
+                    IsCapture = false,
+                    IsEnPassantCapture = false,
+                    IsPromotion = false,
+                    PromotionPiece = null,
+                    IsCastle = false,
+                    CastleType = null,
+                    IsCheck = false,
+                    IsDoubleCheck = false,
+                    IsMate = false,
+                    HasError = false
+                });
         }
 
         [Test]
@@ -110,7 +297,24 @@ namespace PgnFileToolsTests
         {
             const string move = "a4";
             var algebraic = _parser.Parse(move);
-            Verify(algebraic, PieceType.Pawn, null, null, File.A, Row.Row4, false, false, false, null, false, null, false, false, false, false);
+            Verify(algebraic, new Move
+                {
+                    PieceType = PieceType.Pawn,
+                    SourceFile = null,
+                    SourceRow = null,
+                    DestinationFile = File.A,
+                    DestinationRow = Row.Row4,
+                    IsCapture = false,
+                    IsEnPassantCapture = false,
+                    IsPromotion = false,
+                    PromotionPiece = null,
+                    IsCastle = false,
+                    CastleType = null,
+                    IsCheck = false,
+                    IsDoubleCheck = false,
+                    IsMate = false,
+                    HasError = false
+                });
         }
 
         [Test]
@@ -118,7 +322,24 @@ namespace PgnFileToolsTests
         {
             const string move = "hxg6";
             var algebraic = _parser.Parse(move);
-            Verify(algebraic, PieceType.Pawn, File.H, null, File.G, Row.Row6, true, false, false, null, false, null, false, false, false, false);
+            Verify(algebraic, new Move
+                {
+                    PieceType = PieceType.Pawn,
+                    SourceFile = File.H,
+                    SourceRow = null,
+                    DestinationFile = File.G,
+                    DestinationRow = Row.Row6,
+                    IsCapture = true,
+                    IsEnPassantCapture = false,
+                    IsPromotion = false,
+                    PromotionPiece = null,
+                    IsCastle = false,
+                    CastleType = null,
+                    IsCheck = false,
+                    IsDoubleCheck = false,
+                    IsMate = false,
+                    HasError = false
+                });
         }
 
         [Test]
@@ -126,7 +347,24 @@ namespace PgnFileToolsTests
         {
             const string move = "exd8=Q";
             var algebraic = _parser.Parse(move);
-            Verify(algebraic, PieceType.Pawn, File.E, null, File.D, Row.Row8, true, false, true, PieceType.Queen, false, null, false, false, false, false);
+            Verify(algebraic, new Move
+                {
+                    PieceType = PieceType.Pawn,
+                    SourceFile = File.E,
+                    SourceRow = null,
+                    DestinationFile = File.D,
+                    DestinationRow = Row.Row8,
+                    IsCapture = true,
+                    IsEnPassantCapture = false,
+                    IsPromotion = true,
+                    PromotionPiece = PieceType.Queen,
+                    IsCastle = false,
+                    CastleType = null,
+                    IsCheck = false,
+                    IsDoubleCheck = false,
+                    IsMate = false,
+                    HasError = false
+                });
         }
 
         [Test]
@@ -134,7 +372,24 @@ namespace PgnFileToolsTests
         {
             const string move = "fxg3ep";
             var algebraic = _parser.Parse(move);
-            Verify(algebraic, PieceType.Pawn, File.F, null, File.G, Row.Row3, true, true, false, null, false, null, false, false, false, false);
+            Verify(algebraic, new Move
+                {
+                    PieceType = PieceType.Pawn,
+                    SourceFile = File.F,
+                    SourceRow = null,
+                    DestinationFile = File.G,
+                    DestinationRow = Row.Row3,
+                    IsCapture = true,
+                    IsEnPassantCapture = true,
+                    IsPromotion = false,
+                    PromotionPiece = null,
+                    IsCastle = false,
+                    CastleType = null,
+                    IsCheck = false,
+                    IsDoubleCheck = false,
+                    IsMate = false,
+                    HasError = false
+                });
         }
 
         [Test]
@@ -142,7 +397,24 @@ namespace PgnFileToolsTests
         {
             const string move = "b1=Q+";
             var algebraic = _parser.Parse(move);
-            Verify(algebraic, PieceType.Pawn, null, null, File.B, Row.Row1, false, false, true, PieceType.Queen, false, null, true, false, false, false);
+            Verify(algebraic, new Move
+                {
+                    PieceType = PieceType.Pawn,
+                    SourceFile = null,
+                    SourceRow = null,
+                    DestinationFile = File.B,
+                    DestinationRow = Row.Row1,
+                    IsCapture = false,
+                    IsEnPassantCapture = false,
+                    IsPromotion = true,
+                    PromotionPiece = PieceType.Queen,
+                    IsCastle = false,
+                    CastleType = null,
+                    IsCheck = true,
+                    IsDoubleCheck = false,
+                    IsMate = false,
+                    HasError = false
+                });
         }
 
         [Test]
@@ -150,7 +422,24 @@ namespace PgnFileToolsTests
         {
             const string move = "c1Q";
             var algebraic = _parser.Parse(move);
-            Verify(algebraic, PieceType.Pawn, null, null, File.C, Row.Row1, false, false, true, PieceType.Queen, false, null, false, false, false, false);
+            Verify(algebraic, new Move
+                {
+                    PieceType = PieceType.Pawn,
+                    SourceFile = null,
+                    SourceRow = null,
+                    DestinationFile = File.C,
+                    DestinationRow = Row.Row1,
+                    IsCapture = false,
+                    IsEnPassantCapture = false,
+                    IsPromotion = true,
+                    PromotionPiece = PieceType.Queen,
+                    IsCastle = false,
+                    CastleType = null,
+                    IsCheck = false,
+                    IsDoubleCheck = false,
+                    IsMate = false,
+                    HasError = false
+                });
         }
 
         [Test]
@@ -158,7 +447,24 @@ namespace PgnFileToolsTests
         {
             const string move = "c1=Q";
             var algebraic = _parser.Parse(move);
-            Verify(algebraic, PieceType.Pawn, null, null, File.C, Row.Row1, false, false, true, PieceType.Queen, false, null, false, false, false, false);
+            Verify(algebraic, new Move
+                {
+                    PieceType = PieceType.Pawn,
+                    SourceFile = null,
+                    SourceRow = null,
+                    DestinationFile = File.C,
+                    DestinationRow = Row.Row1,
+                    IsCapture = false,
+                    IsEnPassantCapture = false,
+                    IsPromotion = true,
+                    PromotionPiece = PieceType.Queen,
+                    IsCastle = false,
+                    CastleType = null,
+                    IsCheck = false,
+                    IsDoubleCheck = false,
+                    IsMate = false,
+                    HasError = false
+                });
         }
 
         [Test]
@@ -170,23 +476,23 @@ namespace PgnFileToolsTests
             algebraic.ErrorMessage.ShouldNotBeNullOrEmpty();
         }
 
-        private static void Verify(Move move, PieceType pieceType, File sourceFile, Row sourceRow, File destinationFile, Row destinationRow, bool isCapture, bool isEnPassantCapture, bool isPromotion, PieceType promotionPiece, bool isCastle, CastleType castleType, bool isCheck, bool isDoubleCheck, bool isMate, bool hasError)
+        private static void Verify(Move move, Move expected)
         {
-            move.HasError.ShouldBeEqualTo(hasError, "has error");
-            move.PieceType.ShouldBeEqualTo(pieceType, "piece type");
-            move.SourceFile.ShouldBeEqualTo(sourceFile, "source file");
-            move.SourceRow.ShouldBeEqualTo(sourceRow, "source row");
-            move.DestinationFile.ShouldBeEqualTo(destinationFile, "destination file");
-            move.DestinationRow.ShouldBeEqualTo(destinationRow, "destination row");
-            move.IsCapture.ShouldBeEqualTo(isCapture, "is capture");
-            move.IsEnPassantCapture.ShouldBeEqualTo(isEnPassantCapture, "is en passant capture");
-            move.IsPromotion.ShouldBeEqualTo(isPromotion, "is promotion");
-            move.PromotionPiece.ShouldBeEqualTo(promotionPiece, "promotion piece");
-            move.IsCastle.ShouldBeEqualTo(isCastle, "is castle");
-            move.CastleType.ShouldBeEqualTo(castleType, "castle type");
-            move.IsCheck.ShouldBeEqualTo(isCheck, "is check");
-            move.IsDoubleCheck.ShouldBeEqualTo(isDoubleCheck, "is double check");
-            move.IsMate.ShouldBeEqualTo(isMate, "is mate");
+            move.HasError.ShouldBeEqualTo(expected.HasError, "has error");
+            move.PieceType.ShouldBeEqualTo(expected.PieceType, "piece type");
+            move.SourceFile.ShouldBeEqualTo(expected.SourceFile, "source file");
+            move.SourceRow.ShouldBeEqualTo(expected.SourceRow, "source row");
+            move.DestinationFile.ShouldBeEqualTo(expected.DestinationFile, "destination file");
+            move.DestinationRow.ShouldBeEqualTo(expected.DestinationRow, "destination row");
+            move.IsCapture.ShouldBeEqualTo(expected.IsCapture, "is capture");
+            move.IsEnPassantCapture.ShouldBeEqualTo(expected.IsEnPassantCapture, "is en passant capture");
+            move.IsPromotion.ShouldBeEqualTo(expected.IsPromotion, "is promotion");
+            move.PromotionPiece.ShouldBeEqualTo(expected.PromotionPiece, "promotion piece");
+            move.IsCastle.ShouldBeEqualTo(expected.IsCastle, "is castle");
+            move.CastleType.ShouldBeEqualTo(expected.CastleType, "castle type");
+            move.IsCheck.ShouldBeEqualTo(expected.IsCheck, "is check");
+            move.IsDoubleCheck.ShouldBeEqualTo(expected.IsDoubleCheck, "is double check");
+            move.IsMate.ShouldBeEqualTo(expected.IsMate, "is mate");
         }
     }
 }
