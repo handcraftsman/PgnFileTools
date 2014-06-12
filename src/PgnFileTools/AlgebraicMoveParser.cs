@@ -148,7 +148,7 @@ namespace PgnFileTools
         private bool ReadPiece(char ch, Move move)
         {
             var piece = PieceType.GetFor(ch);
-            if (piece != null)
+            if (piece != null && piece.Symbol == ch + "")
             {
                 move.PieceType = piece;
                 _handle = ReadDestinationFile;

@@ -122,6 +122,14 @@ namespace PgnFileToolsTests
         }
 
         [Test]
+        public void Should_be_able_to_parse_pawn_promotion__b1_EQUAL_Q_PLUS()
+        {
+            const string move = "b1=Q+";
+            var algebraic = _parser.Parse(move);
+            Verify(algebraic, PieceType.Pawn, null, null, File.B, Row.Row1, false, false, true, PieceType.Queen, true, false, false, false);
+        }
+
+        [Test]
         public void Should_be_able_to_parse_pawn_promotion__c1Q()
         {
             const string move = "c1Q";
