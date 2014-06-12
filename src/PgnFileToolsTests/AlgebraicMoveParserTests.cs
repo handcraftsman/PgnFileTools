@@ -105,6 +105,15 @@ namespace PgnFileToolsTests
             Verify(algebraic, PieceType.Pawn, null, null, File.C, Row.Row1, false, false, true, PieceType.Queen, false);
         }
 
+        [Test]
+        public void Should_set_HasError_to__true__for_an_incomplete_move()
+        {
+            const string move = "c";
+            var algebraic = _parser.Parse(move);
+            algebraic.HasError.ShouldBeTrue();
+            algebraic.ErrorMessage.ShouldNotBeNullOrEmpty();
+        }
+
         private static void Verify(Move move, PieceType pieceType, File sourceFile, Row sourceRow, File destinationFile, Row destinationRow, bool isCapture, bool isEnPassantCapture, bool isPromotion, PieceType promotionPiece, bool hasError)
         {
             move.HasError.ShouldBeEqualTo(hasError, "has error");

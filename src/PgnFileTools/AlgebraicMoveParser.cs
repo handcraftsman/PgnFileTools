@@ -48,6 +48,11 @@ namespace PgnFileTools
             {
                 move.HasError = true;
             }
+            if (_handle != Done)
+            {
+                move.HasError = true;
+                move.ErrorMessage = "Unexpected end of move text.";
+            }
             return move;
         }
 
