@@ -98,6 +98,48 @@ namespace PgnFileToolsTests.Constants
                 var result = PieceType.GetFor('R');
                 result.ShouldBeEqualTo(PieceType.Rook);
             }
+
+            [Test]
+            public void Given__b__should_get__null()
+            {
+                var result = PieceType.GetFor('b');
+                result.ShouldBeNull();
+            }
+
+            [Test]
+            public void Given__k__should_get__null()
+            {
+                var result = PieceType.GetFor('k');
+                result.ShouldBeNull();
+            }
+
+            [Test]
+            public void Given__n__should_get__null()
+            {
+                var result = PieceType.GetFor('n');
+                result.ShouldBeNull();
+            }
+
+            [Test]
+            public void Given__p__should_get__null()
+            {
+                var result = PieceType.GetFor('p');
+                result.ShouldBeNull();
+            }
+
+            [Test]
+            public void Given__q__should_get__null()
+            {
+                var result = PieceType.GetFor('q');
+                result.ShouldBeNull();
+            }
+
+            [Test]
+            public void Given__r__should_get__null()
+            {
+                var result = PieceType.GetFor('r');
+                result.ShouldBeNull();
+            }
         }
     }
 }

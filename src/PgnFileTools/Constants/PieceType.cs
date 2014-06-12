@@ -21,7 +21,8 @@ namespace PgnFileTools
 
         public static PieceType GetFor(char token)
         {
-            return GetFor(token + "");
+            var pieceType = GetFor(token + "");
+            return (pieceType != null && pieceType.Symbol[0] == token) ? pieceType : null;
         }
     }
 }
