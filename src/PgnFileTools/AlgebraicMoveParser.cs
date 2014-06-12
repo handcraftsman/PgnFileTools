@@ -141,7 +141,6 @@ namespace PgnFileTools
         {
             if (ch == PromotionToken)
             {
-                move.IsPromotion = true;
                 _handle = ReadPromotionPiece;
                 return true;
             }

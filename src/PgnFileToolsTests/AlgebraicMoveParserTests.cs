@@ -82,6 +82,14 @@ namespace PgnFileToolsTests
         }
 
         [Test]
+        public void Should_be_able_to_parse_pawn_capture_and_promotion__exd8_EQUAL_Q()
+        {
+            const string move = "exd8=Q";
+            var algebraic = _parser.Parse(move);
+            Verify(algebraic, PieceType.Pawn, File.E, null, File.D, Row.Row8, true, false, true, PieceType.Queen, false);
+        }
+
+        [Test]
         public void Should_be_able_to_parse_pawn_capture_en_passant__fxg3ep()
         {
             const string move = "fxg3ep";
