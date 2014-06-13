@@ -53,7 +53,7 @@ namespace PgnFileTools
         {
             if (isCapture)
             {
-                return source.File != null && source.File != destination.File;
+                return source.File != null && Math.Abs(source.File.Index - destination.File.Index) == 1;
             }
             return true;
         }

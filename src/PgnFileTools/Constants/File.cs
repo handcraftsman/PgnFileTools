@@ -4,20 +4,23 @@ namespace PgnFileTools
 {
     public class File : NamedConstant<File>
     {
-        public static readonly File A = new File('a');
-        public static readonly File B = new File('b');
-        public static readonly File C = new File('c');
-        public static readonly File D = new File('d');
-        public static readonly File E = new File('e');
-        public static readonly File F = new File('f');
-        public static readonly File G = new File('g');
-        public static readonly File H = new File('h');
+        public static readonly File A = new File('a', 1);
+        public static readonly File B = new File('b', 2);
+        public static readonly File C = new File('c', 3);
+        public static readonly File D = new File('d', 4);
+        public static readonly File E = new File('e', 5);
+        public static readonly File F = new File('f', 6);
+        public static readonly File G = new File('g', 7);
+        public static readonly File H = new File('h', 8);
 
-        private File(char token)
+        private File(char token, int index)
         {
+            Index = index;
             Symbol = token + "";
             Add(Symbol, this);
         }
+
+        public int Index { get; private set; }
 
         public string Symbol { get; private set; }
 

@@ -9,6 +9,66 @@ namespace PgnFileToolsTests.Constants
     public class FileTests
     {
         [TestFixture]
+        public class When_asked_for_its_Index
+        {
+            [Test]
+            public void Given__File_A__should_return__1()
+            {
+                var result = File.A.Index;
+                result.ShouldBeEqualTo(1);
+            }
+
+            [Test]
+            public void Given__File_B__should_return__2()
+            {
+                var result = File.B.Index;
+                result.ShouldBeEqualTo(2);
+            }
+
+            [Test]
+            public void Given__File_C__should_return__3()
+            {
+                var result = File.C.Index;
+                result.ShouldBeEqualTo(3);
+            }
+
+            [Test]
+            public void Given__File_D__should_return__4()
+            {
+                var result = File.D.Index;
+                result.ShouldBeEqualTo(4);
+            }
+
+            [Test]
+            public void Given__File_E__should_return__5()
+            {
+                var result = File.E.Index;
+                result.ShouldBeEqualTo(5);
+            }
+
+            [Test]
+            public void Given__File_F__should_return__6()
+            {
+                var result = File.F.Index;
+                result.ShouldBeEqualTo(6);
+            }
+
+            [Test]
+            public void Given__File_G__should_return__7()
+            {
+                var result = File.G.Index;
+                result.ShouldBeEqualTo(7);
+            }
+
+            [Test]
+            public void Given__File_H__should_return__8()
+            {
+                var result = File.H.Index;
+                result.ShouldBeEqualTo(8);
+            }
+        }
+
+        [TestFixture]
         public class When_asked_for_its_Symbol
         {
             [Test]
