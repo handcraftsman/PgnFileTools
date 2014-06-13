@@ -73,6 +73,23 @@ namespace PgnFileToolsTests.Constants
                 var result = PieceType.Pawn.IsLegal(source, isCapture, destination);
                 result.ShouldBeTrue();
             }
+
+            [Test]
+            public void Given_a_capture_from_the_same_file__should_return_false()
+            {
+                var source = new Position
+                    {
+                        File = null
+                    };
+                const bool isCapture = true;
+                var destination = new Position
+                    {
+                        File = File.C,
+                        Row = Row.Row6
+                    };
+                var result = PieceType.Pawn.IsLegal(source, isCapture, destination);
+                result.ShouldBeFalse();
+            }
         }
 
         [TestFixture]

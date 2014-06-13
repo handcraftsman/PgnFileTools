@@ -34,17 +34,17 @@ namespace PgnFileTools
             return (pieceType != null && pieceType.Symbol[0] == token) ? pieceType : null;
         }
 
-        private static bool IsLegalBishopMove(Position arg1, bool arg2, Position arg3)
+        private static bool IsLegalBishopMove(Position source, bool isCapture, Position destination)
         {
             return true; // todo
         }
 
-        private static bool IsLegalKingMove(Position arg1, bool arg2, Position arg3)
+        private static bool IsLegalKingMove(Position source, bool isCapture, Position destination)
         {
             return true; // todo
         }
 
-        private static bool IsLegalKnightMove(Position arg1, bool arg2, Position arg3)
+        private static bool IsLegalKnightMove(Position source, bool isCapture, Position destination)
         {
             return true; // todo
         }
@@ -53,17 +53,17 @@ namespace PgnFileTools
         {
             if (isCapture)
             {
-                return source.File != destination.File;
+                return source.File != null && source.File != destination.File;
             }
             return true;
         }
 
-        private static bool IsLegalQueenMove(Position arg1, bool arg2, Position arg3)
+        private static bool IsLegalQueenMove(Position source, bool isCapture, Position destination)
         {
             return true; // todo
         }
 
-        private static bool IsLegalRookMove(Position arg1, bool arg2, Position arg3)
+        private static bool IsLegalRookMove(Position source, bool isCapture, Position destination)
         {
             return true; // todo
         }
