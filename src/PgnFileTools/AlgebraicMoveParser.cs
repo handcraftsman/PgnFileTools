@@ -62,6 +62,19 @@ namespace PgnFileTools
                         move.IsEnPassantCapture = !match.Groups[EnPassant].Value.IsNullOrEmpty();
                     }
                 }
+                if (!move.PieceType.IsLegal(new Position
+                    {
+                        File = move.SourceFile,
+                        Row = move.SourceRow
+                    }, move.IsCapture, new Position
+                        {
+                            File = move.DestinationFile,
+                            Row = move.DestinationRow
+                        }))
+                {
+                    move.HasError = true;
+                    move.ErrorMessage = "The source and destination are illegal for this piece type";
+                }
             }
 
             move.IsCheck = !match.Groups[Check].Value.IsNullOrEmpty();

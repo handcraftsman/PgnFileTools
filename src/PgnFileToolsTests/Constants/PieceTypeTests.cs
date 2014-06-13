@@ -55,6 +55,27 @@ namespace PgnFileToolsTests.Constants
         }
 
         [TestFixture]
+        public class When_asked_if_a_Pawn_move_IsLegal
+        {
+            [Test]
+            public void Given_a_capture_from_an_adjacent_file__should_return_true()
+            {
+                var source = new Position
+                    {
+                        File = File.A
+                    };
+                const bool isCapture = true;
+                var destination = new Position
+                    {
+                        File = File.B,
+                        Row = Row.Row6
+                    };
+                var result = PieceType.Pawn.IsLegal(source, isCapture, destination);
+                result.ShouldBeTrue();
+            }
+        }
+
+        [TestFixture]
         public class When_asked_to_GetFor
         {
             [Test]

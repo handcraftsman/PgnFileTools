@@ -54,6 +54,7 @@
     <Compile Include="Constants\File.cs" />
     <Compile Include="Constants\PieceType.cs" />
     <Compile Include="Move.cs" />
+    <Compile Include="Position.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Constants\Row.cs" />
   </ItemGroup>

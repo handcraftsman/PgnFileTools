@@ -1,21 +1,30 @@
+using System;
+
 using MvbaCore;
 
 namespace PgnFileTools
 {
     public class PieceType : NamedConstant<PieceType>
     {
-        public static readonly PieceType Bishop = new PieceType("B", "B");
-        public static readonly PieceType King = new PieceType("K", "K");
-        public static readonly PieceType Knight = new PieceType("N", "N");
-        public static readonly PieceType Pawn = new PieceType("", "P");
-        public static readonly PieceType Queen = new PieceType("Q", "Q");
-        public static readonly PieceType Rook = new PieceType("R", "R");
+        public static readonly PieceType Bishop = new PieceType("B", "B", IsLegalBishopMove);
 
-        private PieceType(string token, string symbol)
+        public static readonly PieceType King = new PieceType("K", "K", IsLegalKingMove);
+
+        public static readonly PieceType Knight = new PieceType("N", "N", IsLegalKnightMove);
+
+        public static readonly PieceType Pawn = new PieceType("", "P", IsLegalPawnMove);
+        public static readonly PieceType Queen = new PieceType("Q", "Q", IsLegalQueenMove);
+
+        public static readonly PieceType Rook = new PieceType("R", "R", IsLegalRookMove);
+
+        private PieceType(string token, string symbol, Func<Position, bool, Position, bool> isLegal)
         {
             Symbol = symbol;
+            IsLegal = isLegal;
             Add(token, this);
         }
+
+        public Func<Position, bool, Position, bool> IsLegal { get; private set; }
 
         public string Symbol { get; private set; }
 
@@ -23,6 +32,40 @@ namespace PgnFileTools
         {
             var pieceType = GetFor(token + "");
             return (pieceType != null && pieceType.Symbol[0] == token) ? pieceType : null;
+        }
+
+        private static bool IsLegalBishopMove(Position arg1, bool arg2, Position arg3)
+        {
+            return true; // todo
+        }
+
+        private static bool IsLegalKingMove(Position arg1, bool arg2, Position arg3)
+        {
+            return true; // todo
+        }
+
+        private static bool IsLegalKnightMove(Position arg1, bool arg2, Position arg3)
+        {
+            return true; // todo
+        }
+
+        private static bool IsLegalPawnMove(Position source, bool isCapture, Position destination)
+        {
+            if (isCapture)
+            {
+                return source.File != destination.File;
+            }
+            return true;
+        }
+
+        private static bool IsLegalQueenMove(Position arg1, bool arg2, Position arg3)
+        {
+            return true; // todo
+        }
+
+        private static bool IsLegalRookMove(Position arg1, bool arg2, Position arg3)
+        {
+            return true; // todo
         }
     }
 }
