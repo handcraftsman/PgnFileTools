@@ -131,6 +131,27 @@ namespace PgnFileToolsTests.Constants
         }
 
         [TestFixture]
+        public class When_asked_if_a_Knight_move_IsLegal
+        {
+            [Test]
+            public void Given_a_move_from_more_than_2_files_away__should_return_false()
+            {
+                var source = new Position
+                    {
+                        File = File.H,
+                    };
+                const bool isCapture = true;
+                var destination = new Position
+                    {
+                        File = File.B,
+                        Row = Row.Row6
+                    };
+                var result = PieceType.Knight.IsLegal(source, isCapture, destination);
+                result.ShouldBeFalse();
+            }
+        }
+
+        [TestFixture]
         public class When_asked_if_a_Pawn_move_IsLegal
         {
             [Test]

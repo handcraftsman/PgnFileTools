@@ -47,7 +47,7 @@ namespace PgnFileTools
 
         private static bool IsLegalKnightMove(Position source, bool isCapture, Position destination)
         {
-            return true; // todo
+            return source.File == null || Math.Abs(source.File.Index - destination.File.Index) <= 2;
         }
 
         private static bool IsLegalPawnMove(Position source, bool isCapture, Position destination)
