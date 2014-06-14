@@ -36,7 +36,7 @@ namespace PgnFileTools
 
         private static bool IsLegalBishopMove(Position source, bool isCapture, Position destination)
         {
-            return true; // todo
+            return source.File != destination.File;
         }
 
         private static bool IsLegalKingMove(Position source, bool isCapture, Position destination)

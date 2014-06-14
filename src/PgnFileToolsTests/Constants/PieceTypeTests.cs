@@ -55,6 +55,27 @@ namespace PgnFileToolsTests.Constants
         }
 
         [TestFixture]
+        public class When_asked_if_a_Bishop_move_IsLegal
+        {
+            [Test]
+            public void Given_a_move_from_the_same_file__should_return_false()
+            {
+                var source = new Position
+                    {
+                        File = File.B,
+                    };
+                const bool isCapture = true;
+                var destination = new Position
+                    {
+                        File = File.B,
+                        Row = Row.Row6
+                    };
+                var result = PieceType.Bishop.IsLegal(source, isCapture, destination);
+                result.ShouldBeFalse();
+            }
+        }
+
+        [TestFixture]
         public class When_asked_if_a_Pawn_move_IsLegal
         {
             [Test]
