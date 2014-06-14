@@ -47,8 +47,9 @@ namespace PgnFileTools
 
         private static bool IsLegalKnightMove(Position source, bool isCapture, Position destination)
         {
-            return (source.File == null || Math.Abs(source.File.Index - destination.File.Index) <= 2) &&
-                   (source.Row == null || Math.Abs(source.Row.Index - destination.Row.Index) <= 2);
+            var fileDistance = source.File == null ? -10 : Math.Abs(source.File.Index - destination.File.Index);
+            var rowDistance = source.Row == null ? -20 : Math.Abs(source.Row.Index - destination.Row.Index);
+            return fileDistance <= 2 && rowDistance <= 2 && fileDistance != rowDistance;
         }
 
         private static bool IsLegalPawnMove(Position source, bool isCapture, Position destination)
