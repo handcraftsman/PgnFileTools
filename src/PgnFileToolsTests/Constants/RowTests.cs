@@ -69,6 +69,66 @@ namespace PgnFileToolsTests.Constants
         }
 
         [TestFixture]
+        public class When_asked_for_its_Index
+        {
+            [Test]
+            public void Given__Row_1__should_return__1()
+            {
+                var result = Row.Row1.Index;
+                result.ShouldBeEqualTo(1);
+            }
+
+            [Test]
+            public void Given__Row_2__should_return__2()
+            {
+                var result = Row.Row2.Index;
+                result.ShouldBeEqualTo(2);
+            }
+
+            [Test]
+            public void Given__Row_3__should_return__3()
+            {
+                var result = Row.Row3.Index;
+                result.ShouldBeEqualTo(3);
+            }
+
+            [Test]
+            public void Given__Row_4__should_return__4()
+            {
+                var result = Row.Row4.Index;
+                result.ShouldBeEqualTo(4);
+            }
+
+            [Test]
+            public void Given__Row_5__should_return__5()
+            {
+                var result = Row.Row5.Index;
+                result.ShouldBeEqualTo(5);
+            }
+
+            [Test]
+            public void Given__Row_6__should_return__6()
+            {
+                var result = Row.Row6.Index;
+                result.ShouldBeEqualTo(6);
+            }
+
+            [Test]
+            public void Given__Row_7__should_return__7()
+            {
+                var result = Row.Row7.Index;
+                result.ShouldBeEqualTo(7);
+            }
+
+            [Test]
+            public void Given__Row_8__should_return__8()
+            {
+                var result = Row.Row8.Index;
+                result.ShouldBeEqualTo(8);
+            }
+        }
+
+        [TestFixture]
         public class When_asked_for_its_Symbol
         {
             [Test]
