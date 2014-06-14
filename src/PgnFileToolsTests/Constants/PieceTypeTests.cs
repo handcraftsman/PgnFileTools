@@ -127,6 +127,62 @@ namespace PgnFileToolsTests.Constants
         }
 
         [TestFixture]
+        public class When_asked_if_a_Rook_move_IsLegal
+        {
+            [Test]
+            public void Given_a_move_from_different_row_and_file__should_return_false()
+            {
+                var source = new Position
+                    {
+                        File = File.C,
+                        Row = Row.Row1
+                    };
+                const bool isCapture = true;
+                var destination = new Position
+                    {
+                        File = File.B,
+                        Row = Row.Row6
+                    };
+                var result = PieceType.Rook.IsLegal(source, isCapture, destination);
+                result.ShouldBeFalse();
+            }
+
+            [Test]
+            public void Given_a_move_from_same_file__should_return_true()
+            {
+                var source = new Position
+                    {
+                        File = File.B,
+                    };
+                const bool isCapture = true;
+                var destination = new Position
+                    {
+                        File = File.B,
+                        Row = Row.Row6
+                    };
+                var result = PieceType.Rook.IsLegal(source, isCapture, destination);
+                result.ShouldBeTrue();
+            }
+
+            [Test]
+            public void Given_a_move_from_same_row__should_return_true()
+            {
+                var source = new Position
+                    {
+                        Row = Row.Row6
+                    };
+                const bool isCapture = true;
+                var destination = new Position
+                    {
+                        File = File.B,
+                        Row = Row.Row6
+                    };
+                var result = PieceType.Rook.IsLegal(source, isCapture, destination);
+                result.ShouldBeTrue();
+            }
+        }
+
+        [TestFixture]
         public class When_asked_to_GetFor
         {
             [Test]

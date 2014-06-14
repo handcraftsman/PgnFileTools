@@ -65,7 +65,7 @@ namespace PgnFileTools
 
         private static bool IsLegalRookMove(Position source, bool isCapture, Position destination)
         {
-            return true; // todo
+            return (source.File == null || source.Row == null || source.File == destination.File || source.Row == destination.Row);
         }
     }
 }
