@@ -55,7 +55,7 @@ namespace PgnFileTools
             {
                 return source.File != null && Math.Abs(source.File.Index - destination.File.Index) == 1;
             }
-            return true;
+            return source.File == null;
         }
 
         private static bool IsLegalQueenMove(Position source, bool isCapture, Position destination)

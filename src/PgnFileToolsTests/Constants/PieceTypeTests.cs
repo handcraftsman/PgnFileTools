@@ -92,13 +92,13 @@ namespace PgnFileToolsTests.Constants
             }
 
             [Test]
-            public void Given_a_capture_from_non_adjacent_file__should_return_false()
+            public void Given_a_non_capture_from_a_different_file__should_return_false()
             {
                 var source = new Position
                     {
                         File = File.A
                     };
-                const bool isCapture = true;
+                const bool isCapture = false;
                 var destination = new Position
                     {
                         File = File.C,
@@ -106,6 +106,23 @@ namespace PgnFileToolsTests.Constants
                     };
                 var result = PieceType.Pawn.IsLegal(source, isCapture, destination);
                 result.ShouldBeFalse();
+            }
+
+            [Test]
+            public void Given_a_non_capture_from_the_same_file__should_return_true()
+            {
+                var source = new Position
+                    {
+                        File = null
+                    };
+                const bool isCapture = false;
+                var destination = new Position
+                    {
+                        File = File.C,
+                        Row = Row.Row6
+                    };
+                var result = PieceType.Pawn.IsLegal(source, isCapture, destination);
+                result.ShouldBeTrue();
             }
         }
 
