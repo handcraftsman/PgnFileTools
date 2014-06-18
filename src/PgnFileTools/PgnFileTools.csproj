@@ -53,6 +53,9 @@
     <Compile Include="Constants\CastleType.cs" />
     <Compile Include="Constants\File.cs" />
     <Compile Include="Constants\PieceType.cs" />
+    <Compile Include="Extensions\TextReaderExtensions.cs" />
+    <Compile Include="GameInfo.cs" />
+    <Compile Include="GameInfoParser.cs" />
     <Compile Include="Move.cs" />
     <Compile Include="Position.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
