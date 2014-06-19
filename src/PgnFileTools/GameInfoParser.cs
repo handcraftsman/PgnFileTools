@@ -28,7 +28,7 @@ namespace PgnFileTools
             _partialHeader.Length = 0;
             gameInfo.Headers.Add(headerParts[0], headerParts[1].Trim('"'));
 
-            _handle = Done;
+            _handle = HandleHeaderStart;
             return true;
         }
 
@@ -56,7 +56,7 @@ namespace PgnFileTools
             {
                 gameInfo.HasError = true;
             }
-            if (_handle != Done)
+            if (!new Func<char, GameInfo, bool>[] { Done, HandleHeaderStart }.Contains(_handle))
             {
                 gameInfo.HasError = true;
                 gameInfo.ErrorMessage = "Unexpected end of game info text.";

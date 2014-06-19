@@ -19,6 +19,18 @@ namespace PgnFileToolsTests
         {
             _parser = new GameInfoParser();
         }
+
+        [Test]
+        public void Given_one_two_header_lines__should_parse_the_header_lines()
+        {
+            const string input = "[Result \"0-1\"]\n[Date \"2014.06.19\"]";
+            var result = _parser.Parse(CreateStream(input));
+            result.Headers.Count.ShouldBeEqualTo(2);
+            result.Headers["Result"].ShouldBeEqualTo("0-1");
+            result.Headers["Date"].ShouldBeEqualTo("2014.06.19");
+            result.HasError.ShouldBeFalse();
+        }
+
         [Test]
         public void Given_only_a_header_line__should_parse_the_header_line()
         {
