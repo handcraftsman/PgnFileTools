@@ -91,6 +91,7 @@ namespace PgnFileTools
                 _partial.Length = 0;
                 return true;
             }
+
             _partial.Append(ch);
             return true;
         }

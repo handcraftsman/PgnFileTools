@@ -51,7 +51,7 @@ namespace PgnFileToolsTests
         }
 
         [Test]
-        public void Given_one_header_and_one_half_move_and_result__should_parse_the_header_and_move_and_set_HasError_to_false()
+        public void Given_one_header_and_one_move_and_result__should_parse_the_header_and_move_and_set_HasError_to_false()
         {
             const string input = "[Result \"1-0\"]\n1.a4 1-0\n";
             var result = _parser.Parse(CreateStream(input));
@@ -60,6 +60,23 @@ namespace PgnFileToolsTests
             result.HasError.ShouldBeFalse();
             result.Moves.Count.ShouldBeEqualTo(1);
             result.Moves[0].ToAlgebraicString().ShouldBeEqualTo("a4");
+        }
+
+        [Test]
+        public void Given_one_header_and_one_ply__should_parse_the_header_and_moves()
+        {
+            const string input = "[Result \"1-0\"]\n1.d4 d5 1-0\n";
+            var result = _parser.Parse(CreateStream(input));
+            result.Headers.Count.ShouldBeEqualTo(1);
+            result.Headers["Result"].ShouldBeEqualTo("1-0");
+            result.HasError.ShouldBeFalse();
+            result.Moves.Count.ShouldBeEqualTo(2);
+            var move1 = result.Moves[0];
+            move1.ToAlgebraicString().ShouldBeEqualTo("d4");
+            move1.Number.ShouldBeEqualTo(1);
+            var move2 = result.Moves[1];
+            move2.ToAlgebraicString().ShouldBeEqualTo("d5");
+            move2.Number.ShouldBeEqualTo(1);
         }
 
         [Test]
