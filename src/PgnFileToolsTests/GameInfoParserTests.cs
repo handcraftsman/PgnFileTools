@@ -29,14 +29,15 @@ namespace PgnFileToolsTests
         }
 
         [Test]
-        public void Given_one_two_header_lines__should_parse_the_header_lines()
+        public void Given_one_header_and_one_move__should_parse_the_header_and_move()
         {
-            const string input = "[Result \"0-1\"]\n[Date \"2014.06.19\"]";
+            const string input = "[Result \"1-0\"]\n1.a4 ";
             var result = _parser.Parse(CreateStream(input));
-            result.Headers.Count.ShouldBeEqualTo(2);
-            result.Headers["Result"].ShouldBeEqualTo("0-1");
-            result.Headers["Date"].ShouldBeEqualTo("2014.06.19");
-            result.HasError.ShouldBeTrue();
+            result.Headers.Count.ShouldBeEqualTo(1);
+            result.Headers["Result"].ShouldBeEqualTo("1-0");
+            result.HasError.ShouldBeFalse();
+            result.Moves.Count.ShouldBeEqualTo(1);
+            result.Moves[0].ToAlgebraicString().ShouldBeEqualTo("a4");
         }
 
         [Test]
@@ -45,6 +46,17 @@ namespace PgnFileToolsTests
             const string input = "[Result \"0-1\"]";
             var result = _parser.Parse(CreateStream(input));
             result.Headers["Result"].ShouldBeEqualTo("0-1");
+            result.HasError.ShouldBeTrue();
+        }
+
+        [Test]
+        public void Given_two_header_lines__should_parse_the_header_lines()
+        {
+            const string input = "[Result \"0-1\"]\n[Date \"2014.06.19\"]";
+            var result = _parser.Parse(CreateStream(input));
+            result.Headers.Count.ShouldBeEqualTo(2);
+            result.Headers["Result"].ShouldBeEqualTo("0-1");
+            result.Headers["Date"].ShouldBeEqualTo("2014.06.19");
             result.HasError.ShouldBeTrue();
         }
 

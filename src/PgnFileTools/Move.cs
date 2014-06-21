@@ -16,6 +16,7 @@ namespace PgnFileTools
         public bool IsEnPassantCapture { get; set; }
         public bool IsMate { get; set; }
         public bool IsPromotion { get; set; }
+        public int Number { get; set; }
         public PieceType PieceType { get; set; }
         public PieceType PromotionPiece { get; set; }
         public File SourceFile { get; set; }
