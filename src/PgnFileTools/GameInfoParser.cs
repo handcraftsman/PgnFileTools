@@ -84,7 +84,6 @@ namespace PgnFileTools
                 move.Number = _moveNumber;
                 gameInfo.Moves.Add(move);
                 _partial.Length = 0;
-                _handle = Done;
                 return true;
             }
             _partial.Append(ch);

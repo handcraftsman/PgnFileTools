@@ -21,6 +21,16 @@ namespace PgnFileToolsTests
         }
 
         [Test]
+        public void Given_a_game_that_does_not_end_with_the_Result_header_value__should_set__HasError()
+        {
+            const string input = "[Result \"1-0\"]\n1.a4 ";
+            var result = _parser.Parse(CreateStream(input));
+            result.Headers.Count.ShouldBeEqualTo(1);
+            result.Headers["Result"].ShouldBeEqualTo("1-0");
+            result.HasError.ShouldBeTrue();
+        }
+
+        [Test]
         public void Given_no_moves__the_game_should_be_marked__HasError()
         {
             const string input = "[Result \"0-1\"]";
@@ -29,13 +39,13 @@ namespace PgnFileToolsTests
         }
 
         [Test]
-        public void Given_one_header_and_one_move__should_parse_the_header_and_move()
+        public void Given_one_header_and_one_half_move__should_parse_the_header_and_move()
         {
             const string input = "[Result \"1-0\"]\n1.a4 ";
             var result = _parser.Parse(CreateStream(input));
             result.Headers.Count.ShouldBeEqualTo(1);
             result.Headers["Result"].ShouldBeEqualTo("1-0");
-            result.HasError.ShouldBeFalse();
+            result.HasError.ShouldBeTrue();
             result.Moves.Count.ShouldBeEqualTo(1);
             result.Moves[0].ToAlgebraicString().ShouldBeEqualTo("a4");
         }
