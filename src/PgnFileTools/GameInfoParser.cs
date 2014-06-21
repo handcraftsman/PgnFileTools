@@ -159,6 +159,12 @@ namespace PgnFileTools
                     _handle = HandleMoveComment;
                     return true;
                 }
+                case '(':
+                {
+                    _partial.Length = 0;
+                    _handle = HandleMoveVariation;
+                    return true;
+                }
 
                 case '$':
                 {
@@ -178,6 +184,19 @@ namespace PgnFileTools
                 }
             }
 
+            _partial.Append(ch);
+            return true;
+        }
+
+        private bool HandleMoveVariation(char ch, GameInfo gameInfo)
+        {
+            if (ch == ')')
+            {
+                gameInfo.Moves.Last().Variation = _partial.ToString();
+                _partial.Length = 0;
+                _handle = HandleMoveText;
+                return true;
+            }
             _partial.Append(ch);
             return true;
         }

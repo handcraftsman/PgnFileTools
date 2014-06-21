@@ -1,10 +1,10 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 
 namespace PgnFileTools
 {
     public class Move
     {
+        public int? Annotation { get; set; }
         public CastleType CastleType { get; set; }
         public string Comment { get; set; }
         public File DestinationFile { get; set; }
@@ -23,7 +23,7 @@ namespace PgnFileTools
         public PieceType PromotionPiece { get; set; }
         public File SourceFile { get; set; }
         public Row SourceRow { get; set; }
-        public int? Annotation { get; set; }
+        public string Variation { get; set; }
 
         public string ToAlgebraicString()
         {
