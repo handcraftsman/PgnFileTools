@@ -1,4 +1,6 @@
-﻿namespace PgnFileTools
+﻿using System.Text;
+
+namespace PgnFileTools
 {
     public class Move
     {
@@ -18,5 +20,13 @@
         public PieceType PromotionPiece { get; set; }
         public File SourceFile { get; set; }
         public Row SourceRow { get; set; }
+
+        public string ToAlgebraicString()
+        {
+            var result = new StringBuilder();
+            result.Append(DestinationFile.Symbol);
+            result.Append(DestinationRow.Symbol);
+            return result.ToString();
+        }
     }
 }
