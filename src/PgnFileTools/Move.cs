@@ -58,6 +58,11 @@ namespace PgnFileTools
                 result.Append('=');
                 result.Append(PromotionPiece.Symbol);
             }
+            else if (IsEnPassantCapture)
+            {
+                result.Append("ep");
+            }
+
             if (IsCheck)
             {
                 result.Append('+');

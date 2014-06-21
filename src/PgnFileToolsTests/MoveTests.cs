@@ -80,6 +80,16 @@ namespace PgnFileToolsTests
             }
 
             [Test]
+            public void Given_a_move_representing__Pawn_on_File_f_captures_g3_en_passant__should_return__fxg3ep()
+            {
+                const string input = "fxg3ep";
+                var move = _parser.Parse(input);
+                move.HasError.ShouldBeFalse();
+                var result = move.ToAlgebraicString();
+                result.ShouldBeEqualTo(input);
+            }
+
+            [Test]
             public void Given_a_move_representing__Pawn_to_a4__should_return__a4()
             {
                 const string input = "a4";
