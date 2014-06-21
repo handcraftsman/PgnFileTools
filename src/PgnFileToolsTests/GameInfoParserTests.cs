@@ -80,6 +80,29 @@ namespace PgnFileToolsTests
         }
 
         [Test]
+        public void Given_one_header_and_two_plys__should_parse_the_header_and_moves()
+        {
+            const string input = "[Result \"1-0\"]\n1.e4 c6\n2.d4 d5 1-0\n";
+            var result = _parser.Parse(CreateStream(input));
+            result.Headers.Count.ShouldBeEqualTo(1);
+            result.Headers["Result"].ShouldBeEqualTo("1-0");
+            result.HasError.ShouldBeFalse();
+            result.Moves.Count.ShouldBeEqualTo(4);
+            var move1 = result.Moves[0];
+            move1.ToAlgebraicString().ShouldBeEqualTo("e4");
+            move1.Number.ShouldBeEqualTo(1);
+            var move2 = result.Moves[1];
+            move2.ToAlgebraicString().ShouldBeEqualTo("c6");
+            move2.Number.ShouldBeEqualTo(1);
+            var move3 = result.Moves[2];
+            move3.ToAlgebraicString().ShouldBeEqualTo("d4");
+            move3.Number.ShouldBeEqualTo(2);
+            var move4 = result.Moves[3];
+            move4.ToAlgebraicString().ShouldBeEqualTo("d5");
+            move4.Number.ShouldBeEqualTo(2);
+        }
+
+        [Test]
         public void Given_only_a_header_line__should_parse_the_header_line()
         {
             const string input = "[Result \"0-1\"]";

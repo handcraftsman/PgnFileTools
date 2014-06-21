@@ -91,7 +91,10 @@ namespace PgnFileTools
                 _partial.Length = 0;
                 return true;
             }
-
+            if (ch == '.')
+            {
+                return HandleMoveNumber(ch, gameInfo);
+            }
             _partial.Append(ch);
             return true;
         }
