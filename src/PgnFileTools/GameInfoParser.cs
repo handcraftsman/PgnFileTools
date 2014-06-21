@@ -80,6 +80,10 @@ namespace PgnFileTools
         {
             if (Char.IsWhiteSpace(ch))
             {
+                if (_partial.Length == 0)
+                {
+                    return true;
+                }
                 if (_partial.ToString() == gameInfo.Headers["Result"])
                 {
                     _handle = Done;

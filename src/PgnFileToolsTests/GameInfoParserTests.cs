@@ -122,6 +122,18 @@ namespace PgnFileToolsTests
             result.HasError.ShouldBeTrue();
         }
 
+        [Test]
+        public void Given_whitespace_between_the_move_number_and_move_text__should_parse_the_move()
+        {
+            const string input = "[Result \"1-0\"]\n1. a4 1-0\n";
+            var result = _parser.Parse(CreateStream(input));
+            result.Headers.Count.ShouldBeEqualTo(1);
+            result.Headers["Result"].ShouldBeEqualTo("1-0");
+            result.HasError.ShouldBeFalse();
+            result.Moves.Count.ShouldBeEqualTo(1);
+            result.Moves[0].ToAlgebraicString().ShouldBeEqualTo("a4");
+        }
+
         private static StreamReader CreateStream(string input)
         {
             return new StreamReader(new MemoryStream(Encoding.ASCII.GetBytes(input)));
