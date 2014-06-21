@@ -148,30 +148,34 @@ namespace PgnFileTools
                 _partial.Length = 0;
                 return true;
             }
-            if (ch == '.')
+            switch (ch)
             {
-                return HandleMoveNumber(ch, gameInfo);
-            }
-            if (ch == '{')
-            {
-                _partial.Length = 0;
-                _handle = HandleMoveComment;
-                return true;
-            }
-            if (ch == '$')
-            {
-                _partial.Length = 0;
-                _handle = HandleMoveAnnotation;
-                return true;
-            }
-            if (ch == '?')
-            {
-                var move = _algebraicMoveParser.Parse(_partial.ToString());
-                move.Number = _moveNumber;
-                gameInfo.Moves.Add(move);
-                _partial.Length = 0;
-                _handle = HandleSymbolicMoveAnnotation;
-                return HandleSymbolicMoveAnnotation(ch, gameInfo);
+                case '.':
+                    return HandleMoveNumber(ch, gameInfo);
+
+                case '{':
+                {
+                    _partial.Length = 0;
+                    _handle = HandleMoveComment;
+                    return true;
+                }
+
+                case '$':
+                {
+                    _partial.Length = 0;
+                    _handle = HandleMoveAnnotation;
+                    return true;
+                }
+                case '?':
+                case '!':
+                {
+                    var move = _algebraicMoveParser.Parse(_partial.ToString());
+                    move.Number = _moveNumber;
+                    gameInfo.Moves.Add(move);
+                    _partial.Length = 0;
+                    _handle = HandleSymbolicMoveAnnotation;
+                    return HandleSymbolicMoveAnnotation(ch, gameInfo);
+                }
             }
 
             _partial.Append(ch);
@@ -180,7 +184,7 @@ namespace PgnFileTools
 
         private bool HandleSymbolicMoveAnnotation(char ch, GameInfo gameInfo)
         {
-            if (ch == '?')
+            if (ch == '?' || ch == '!')
             {
                 _partial.Append(ch);
                 return true;
