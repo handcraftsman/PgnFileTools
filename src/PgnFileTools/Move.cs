@@ -25,6 +25,10 @@ namespace PgnFileTools
         public string ToAlgebraicString()
         {
             var result = new StringBuilder();
+            if (PieceType != PieceType.Pawn)
+            {
+                result.Append(PieceType.Symbol);
+            }
             result.Append(DestinationFile.Symbol);
             result.Append(DestinationRow.Symbol);
             return result.ToString();
