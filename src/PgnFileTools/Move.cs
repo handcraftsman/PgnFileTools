@@ -33,6 +33,10 @@ namespace PgnFileTools
             {
                 result.Append(SourceFile.Symbol);
             }
+            if (SourceRow != null)
+            {
+                result.Append(SourceRow.Symbol);
+            }
             if (IsCapture)
             {
                 result.Append('x');
