@@ -60,6 +60,16 @@ namespace PgnFileToolsTests
             }
 
             [Test]
+            public void Given_a_move_representing__b1_PROMOTE_Q__should_return__b1_EQUAL_Q()
+            {
+                const string input = "b1=Q";
+                var move = _parser.Parse(input);
+                move.HasError.ShouldBeFalse();
+                var result = move.ToAlgebraicString();
+                result.ShouldBeEqualTo(input);
+            }
+
+            [Test]
             public void Given_a_move_representing__b3_CHECK__should_return__b3_PLUS()
             {
                 const string input = "b3+";

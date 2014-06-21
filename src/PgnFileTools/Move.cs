@@ -43,6 +43,11 @@ namespace PgnFileTools
             }
             result.Append(DestinationFile.Symbol);
             result.Append(DestinationRow.Symbol);
+            if (IsPromotion)
+            {
+                result.Append('=');
+                result.Append(PromotionPiece.Symbol);
+            }
             if (IsCheck)
             {
                 result.Append('+');
