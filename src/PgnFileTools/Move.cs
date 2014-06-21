@@ -29,6 +29,10 @@ namespace PgnFileTools
             {
                 result.Append(PieceType.Symbol);
             }
+            if (IsCapture)
+            {
+                result.Append('x');
+            }
             result.Append(DestinationFile.Symbol);
             result.Append(DestinationRow.Symbol);
             return result.ToString();

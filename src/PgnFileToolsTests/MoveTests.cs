@@ -30,6 +30,16 @@ namespace PgnFileToolsTests
             }
 
             [Test]
+            public void Given_a_move_representing__Bxd4__should_return__Bxd4()
+            {
+                const string input = "Bxd4";
+                var move = _parser.Parse(input);
+                move.HasError.ShouldBeFalse();
+                var result = move.ToAlgebraicString();
+                result.ShouldBeEqualTo(input);
+            }
+
+            [Test]
             public void Given_a_move_representing__a4__should_return__a4()
             {
                 const string input = "a4";
