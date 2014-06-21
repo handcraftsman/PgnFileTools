@@ -43,6 +43,10 @@ namespace PgnFileTools
             }
             result.Append(DestinationFile.Symbol);
             result.Append(DestinationRow.Symbol);
+            if (IsCheck)
+            {
+                result.Append('+');
+            }
             return result.ToString();
         }
     }
