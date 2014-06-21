@@ -27,7 +27,14 @@ namespace PgnFileTools
             var result = new StringBuilder();
             if (PieceType != PieceType.Pawn)
             {
-                result.Append(PieceType.Symbol);
+                if (IsCastle)
+                {
+                    result.Append(CastleType.Symbol);
+                }
+                else
+                {
+                    result.Append(PieceType.Symbol);
+                }
             }
             if (SourceFile != null)
             {
@@ -41,8 +48,11 @@ namespace PgnFileTools
             {
                 result.Append('x');
             }
-            result.Append(DestinationFile.Symbol);
-            result.Append(DestinationRow.Symbol);
+            if (!IsCastle)
+            {
+                result.Append(DestinationFile.Symbol);
+                result.Append(DestinationRow.Symbol);
+            }
             if (IsPromotion)
             {
                 result.Append('=');
