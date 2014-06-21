@@ -48,6 +48,16 @@ namespace PgnFileToolsTests
                 var result = move.ToAlgebraicString();
                 result.ShouldBeEqualTo(input);
             }
+
+            [Test]
+            public void Given_a_move_representing__cxd4__should_return__cxd4()
+            {
+                const string input = "cxd4";
+                var move = _parser.Parse(input);
+                move.HasError.ShouldBeFalse();
+                var result = move.ToAlgebraicString();
+                result.ShouldBeEqualTo(input);
+            }
         }
     }
 }
