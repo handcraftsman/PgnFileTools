@@ -61,6 +61,10 @@ namespace PgnFileTools
             if (IsCheck)
             {
                 result.Append('+');
+                if (IsDoubleCheck)
+                {
+                    result.Append('+');
+                }
             }
             return result.ToString();
         }

@@ -40,6 +40,16 @@ namespace PgnFileToolsTests
             }
 
             [Test]
+            public void Given_a_move_representing__Bishop_to_c8_DOUBLE_CHECK__should_return__Bc8_PLUS_PLUS()
+            {
+                const string input = "Bc8++";
+                var move = _parser.Parse(input);
+                move.HasError.ShouldBeFalse();
+                var result = move.ToAlgebraicString();
+                result.ShouldBeEqualTo(input);
+            }
+
+            [Test]
             public void Given_a_move_representing__Bishop_to_f5__should_return__Bf5()
             {
                 const string input = "Bf5";
