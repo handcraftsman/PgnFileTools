@@ -88,8 +88,8 @@ namespace PgnFileTools
             }
             if (_partial.Length > 0)
             {
-                _partial.Length = 0;
                 gameInfo.Moves.Last().Annotation = Int32.Parse(_partial.ToString());
+                _partial.Length = 0;
             }
             _handle = HandleMoveText;
             return HandleMoveText(ch, gameInfo);
@@ -164,8 +164,32 @@ namespace PgnFileTools
                 _handle = HandleMoveAnnotation;
                 return true;
             }
+            if (ch == '?')
+            {
+                var move = _algebraicMoveParser.Parse(_partial.ToString());
+                move.Number = _moveNumber;
+                gameInfo.Moves.Add(move);
+                _partial.Length = 0;
+                _handle = HandleSymbolicMoveAnnotation;
+                return HandleSymbolicMoveAnnotation(ch, gameInfo);
+            }
+
             _partial.Append(ch);
             return true;
+        }
+
+        private bool HandleSymbolicMoveAnnotation(char ch, GameInfo gameInfo)
+        {
+            if (ch == '?')
+            {
+                _partial.Append(ch);
+                return true;
+            }
+
+            gameInfo.Moves.Last().Annotation = SymbolicMoveAnnotation.GetFor(_partial.ToString()).Id;
+            _partial.Length = 0;
+            _handle = HandleMoveText;
+            return HandleMoveText(ch, gameInfo);
         }
 
         public GameInfo Parse(TextReader source)
