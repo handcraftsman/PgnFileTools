@@ -10,6 +10,8 @@ namespace PgnFileTools
             Moves = new List<Move>();
         }
 
+        public string Comment { get; set; }
+
         public string ErrorMessage { get; set; }
         public bool HasError { get; set; }
         public IDictionary<string, string> Headers { get; private set; }

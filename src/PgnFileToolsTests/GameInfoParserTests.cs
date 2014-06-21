@@ -21,6 +21,32 @@ namespace PgnFileToolsTests
         }
 
         [Test]
+        public void Given_a_comment_after_a_move_text__should_add_the_comment_to_the_Move_information()
+        {
+            const string input = "[Result \"1-0\"]\n1.a4 {foo} 1-0\n";
+            var result = _parser.Parse(CreateStream(input));
+            result.Headers.Count.ShouldBeEqualTo(1);
+            result.Headers["Result"].ShouldBeEqualTo("1-0");
+            result.HasError.ShouldBeFalse();
+            result.Moves.Count.ShouldBeEqualTo(1);
+            result.Moves[0].ToAlgebraicString().ShouldBeEqualTo("a4");
+            result.Moves[0].Comment.ShouldBeEqualTo("foo");
+        }
+
+        [Test]
+        public void Given_a_comment_between_the_last_header_and_first_move_number__should_add_the_comment_to_the_Game_information()
+        {
+            const string input = "[Result \"1-0\"]\n {foo}\n1.a4 1-0\n";
+            var result = _parser.Parse(CreateStream(input));
+            result.Headers.Count.ShouldBeEqualTo(1);
+            result.Headers["Result"].ShouldBeEqualTo("1-0");
+            result.HasError.ShouldBeFalse();
+            result.Comment.ShouldBeEqualTo("foo");
+            result.Moves.Count.ShouldBeEqualTo(1);
+            result.Moves[0].ToAlgebraicString().ShouldBeEqualTo("a4");
+        }
+
+        [Test]
         public void Given_a_game_that_does_not_end_with_the_Result_header_value__should_set__HasError()
         {
             const string input = "[Result \"1-0\"]\n1.a4 ";
@@ -60,19 +86,6 @@ namespace PgnFileToolsTests
             result.HasError.ShouldBeFalse();
             result.Moves.Count.ShouldBeEqualTo(1);
             result.Moves[0].ToAlgebraicString().ShouldBeEqualTo("a4");
-        }
-
-        [Test]
-        public void Given_a_comment_after_a_move_text__should_add_the_comment_to_the_Move_information()
-        {
-            const string input = "[Result \"1-0\"]\n1.a4 {foo} 1-0\n";
-            var result = _parser.Parse(CreateStream(input));
-            result.Headers.Count.ShouldBeEqualTo(1);
-            result.Headers["Result"].ShouldBeEqualTo("1-0");
-            result.HasError.ShouldBeFalse();
-            result.Moves.Count.ShouldBeEqualTo(1);
-            result.Moves[0].ToAlgebraicString().ShouldBeEqualTo("a4");
-            result.Moves[0].Comment.ShouldBeEqualTo("foo");
         }
 
         [Test]

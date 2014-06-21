@@ -25,6 +25,19 @@ namespace PgnFileTools
             return true;
         }
 
+        private bool HandleGameComment(char ch, GameInfo gameInfo)
+        {
+            if (ch == '}')
+            {
+                gameInfo.Comment = _partial.ToString();
+                _partial.Length = 0;
+                _handle = HandleMoveNumber;
+                return true;
+            }
+            _partial.Append(ch);
+            return true;
+        }
+
         private bool HandleHeaderBody(char ch, GameInfo gameInfo)
         {
             if (ch != ']')
@@ -47,8 +60,14 @@ namespace PgnFileTools
                 _handle = HandleHeaderBody;
                 return true;
             }
-            if (ch == '\r' || ch == '\n')
+            if (Char.IsWhiteSpace(ch))
             {
+                return true;
+            }
+            if (ch == '{')
+            {
+                _partial.Length = 0;
+                _handle = HandleGameComment;
                 return true;
             }
             if (Char.IsDigit(ch))
@@ -75,6 +94,10 @@ namespace PgnFileTools
 
         private bool HandleMoveNumber(char ch, GameInfo gameInfo)
         {
+            if (Char.IsWhiteSpace(ch))
+            {
+                return true;
+            }
             if (Char.IsDigit(ch))
             {
                 _partial.Append(ch);
