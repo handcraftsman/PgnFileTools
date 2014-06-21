@@ -5,6 +5,7 @@ namespace PgnFileTools
     public class Move
     {
         public CastleType CastleType { get; set; }
+        public string Comment { get; set; }
         public File DestinationFile { get; set; }
         public Row DestinationRow { get; set; }
         public string ErrorMessage { get; set; }

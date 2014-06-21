@@ -10,12 +10,13 @@ namespace PgnFileTools
     public class GameInfoParser
     {
         private readonly AlgebraicMoveParser _algebraicMoveParser;
+        private readonly StringBuilder _partial;
         private Func<char, GameInfo, bool> _handle;
         private int _moveNumber;
-        private StringBuilder _partial;
 
         public GameInfoParser()
         {
+            _partial = new StringBuilder();
             _algebraicMoveParser = new AlgebraicMoveParser();
         }
 
@@ -59,6 +60,19 @@ namespace PgnFileTools
             return false;
         }
 
+        private bool HandleMoveComment(char ch, GameInfo gameInfo)
+        {
+            if (ch == '}')
+            {
+                gameInfo.Moves.Last().Comment = _partial.ToString();
+                _partial.Length = 0;
+                _handle = HandleMoveText;
+                return true;
+            }
+            _partial.Append(ch);
+            return true;
+        }
+
         private bool HandleMoveNumber(char ch, GameInfo gameInfo)
         {
             if (Char.IsDigit(ch))
@@ -99,13 +113,19 @@ namespace PgnFileTools
             {
                 return HandleMoveNumber(ch, gameInfo);
             }
+            if (ch == '{')
+            {
+                _partial.Length = 0;
+                _handle = HandleMoveComment;
+                return true;
+            }
             _partial.Append(ch);
             return true;
         }
 
         public GameInfo Parse(TextReader source)
         {
-            _partial = new StringBuilder();
+            _partial.Length = 0;
             _handle = HandleHeaderStart;
 
             var gameInfo = new GameInfo();
