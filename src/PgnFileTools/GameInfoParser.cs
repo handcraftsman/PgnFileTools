@@ -80,6 +80,11 @@ namespace PgnFileTools
         {
             if (Char.IsWhiteSpace(ch))
             {
+                if (_partial.ToString() == gameInfo.Headers["Result"])
+                {
+                    _handle = Done;
+                    return true;
+                }
                 var move = _algebraicMoveParser.Parse(_partial.ToString());
                 move.Number = _moveNumber;
                 gameInfo.Moves.Add(move);
