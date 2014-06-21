@@ -56,7 +56,7 @@ namespace PgnFileTools
             {
                 gameInfo.HasError = true;
             }
-            if (!new Func<char, GameInfo, bool>[] { Done, HandleHeaderStart }.Contains(_handle))
+            if (!new Func<char, GameInfo, bool>[] { Done }.Contains(_handle))
             {
                 gameInfo.HasError = true;
                 gameInfo.ErrorMessage = "Unexpected end of game info text.";

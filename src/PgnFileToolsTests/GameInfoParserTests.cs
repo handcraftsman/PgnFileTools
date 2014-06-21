@@ -21,6 +21,14 @@ namespace PgnFileToolsTests
         }
 
         [Test]
+        public void Given_no_moves__the_game_should_be_marked__HasError()
+        {
+            const string input = "[Result \"0-1\"]";
+            var result = _parser.Parse(CreateStream(input));
+            result.HasError.ShouldBeTrue();
+        }
+
+        [Test]
         public void Given_one_two_header_lines__should_parse_the_header_lines()
         {
             const string input = "[Result \"0-1\"]\n[Date \"2014.06.19\"]";
@@ -28,7 +36,7 @@ namespace PgnFileToolsTests
             result.Headers.Count.ShouldBeEqualTo(2);
             result.Headers["Result"].ShouldBeEqualTo("0-1");
             result.Headers["Date"].ShouldBeEqualTo("2014.06.19");
-            result.HasError.ShouldBeFalse();
+            result.HasError.ShouldBeTrue();
         }
 
         [Test]
@@ -37,7 +45,7 @@ namespace PgnFileToolsTests
             const string input = "[Result \"0-1\"]";
             var result = _parser.Parse(CreateStream(input));
             result.Headers["Result"].ShouldBeEqualTo("0-1");
-            result.HasError.ShouldBeFalse();
+            result.HasError.ShouldBeTrue();
         }
 
         private static StreamReader CreateStream(string input)
