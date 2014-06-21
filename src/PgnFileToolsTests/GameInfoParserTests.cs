@@ -57,6 +57,19 @@ namespace PgnFileToolsTests
         }
 
         [Test]
+        public void Given_a_numbered_annotation_after_a_move_text__should_add_the_annotation_to_the_Move_information()
+        {
+            const string input = "[Result \"1-0\"]\n1.a4 $2 1-0\n";
+            var result = _parser.Parse(CreateStream(input));
+            result.Headers.Count.ShouldBeEqualTo(1);
+            result.Headers["Result"].ShouldBeEqualTo("1-0");
+            result.HasError.ShouldBeFalse();
+            result.Moves.Count.ShouldBeEqualTo(1);
+            result.Moves[0].ToAlgebraicString().ShouldBeEqualTo("a4");
+            result.Moves[0].Annotation.ShouldBeEqualTo(2);
+        }
+
+        [Test]
         public void Given_no_moves__the_game_should_be_marked__HasError()
         {
             const string input = "[Result \"0-1\"]";

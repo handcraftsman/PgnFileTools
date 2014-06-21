@@ -79,6 +79,22 @@ namespace PgnFileTools
             return false;
         }
 
+        private bool HandleMoveAnnotation(char ch, GameInfo gameInfo)
+        {
+            if (Char.IsDigit(ch))
+            {
+                _partial.Append(ch);
+                return true;
+            }
+            if (_partial.Length > 0)
+            {
+                _partial.Length = 0;
+                gameInfo.Moves.Last().Annotation = Int32.Parse(_partial.ToString());
+            }
+            _handle = HandleMoveText;
+            return HandleMoveText(ch, gameInfo);
+        }
+
         private bool HandleMoveComment(char ch, GameInfo gameInfo)
         {
             if (ch == '}')
@@ -140,6 +156,12 @@ namespace PgnFileTools
             {
                 _partial.Length = 0;
                 _handle = HandleMoveComment;
+                return true;
+            }
+            if (ch == '$')
+            {
+                _partial.Length = 0;
+                _handle = HandleMoveAnnotation;
                 return true;
             }
             _partial.Append(ch);

@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 
 namespace PgnFileTools
 {
@@ -22,6 +23,7 @@ namespace PgnFileTools
         public PieceType PromotionPiece { get; set; }
         public File SourceFile { get; set; }
         public Row SourceRow { get; set; }
+        public int Annotation { get; set; }
 
         public string ToAlgebraicString()
         {
