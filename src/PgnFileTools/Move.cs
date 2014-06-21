@@ -66,6 +66,10 @@ namespace PgnFileTools
                     result.Append('+');
                 }
             }
+            else if (IsMate)
+            {
+                result.Append('#');
+            }
             return result.ToString();
         }
     }

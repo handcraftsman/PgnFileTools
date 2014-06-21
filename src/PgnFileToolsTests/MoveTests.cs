@@ -110,6 +110,16 @@ namespace PgnFileToolsTests
             }
 
             [Test]
+            public void Given_a_move_representing__Pawn_to_f2_MATE__should_return__f2_SHARP()
+            {
+                const string input = "f2#";
+                var move = _parser.Parse(input);
+                move.HasError.ShouldBeFalse();
+                var result = move.ToAlgebraicString();
+                result.ShouldBeEqualTo(input);
+            }
+
+            [Test]
             public void Given_a_move_representing__Queen_side_castle__should_return__O_DASH_O_DASH_O()
             {
                 const string input = "O-O-O";
