@@ -23,8 +23,9 @@ namespace PgnFileTools
         {
             _regex = new Regex(
                 "^(((?<" + Piece + ">[NBRQK])?(?<" + SourceFile + ">[a-h])?(?<" + SourceRow + ">[1-8])?(?<" + Capture + ">x)?(?<" + DestinationFile + ">[a-h])(?<" + Destinationrow + ">[1-8]))|" +
+                "(((?<" + Piece + ">[NBRQK])?(?<" + SourceFile + ">[a-h])?(?<" + SourceRow + ">[1-8])?(?<" + Capture + ">x)(?<" + DestinationFile + ">[a-h])(?<" + Destinationrow + ">[36]))(?<" + EnPassant + ">ep))|" +
                 "((?<" + SourceFile + ">[a-h])?(?<" + Capture + ">x)?(?<" + DestinationFile + ">[a-h])(?<" + Destinationrow + ">[2-7]))|" +
-                "((?<" + SourceFile + ">[a-h])(?<" + Capture + ">x)(?<" + DestinationFile + ">[a-h])(?<" + Destinationrow + ">[2-7])(?<" + EnPassant + ">ep))|" +
+                "((?<" + SourceFile + ">[a-h])(?<" + Capture + ">x)(?<" + DestinationFile + ">[a-h])(?<" + Destinationrow + ">[36])(?<" + EnPassant + ">ep))|" +
                 "((?<" + SourceFile + ">[a-h])?(?<" + Capture + ">x)?(?<" + DestinationFile + ">[a-h])(?<" + Destinationrow + @">[18])(?:\=?(?<" + Promotionpiece + ">[NBRQK])))|" +
                 "(?<" + Castle + ">O(-?O){1,2}))" +
                 "((?<" + Check + @">\+)(?<" + DoubleCheck + @">\+)?|(?<" + Mate + ">#))?$",
@@ -57,10 +58,10 @@ namespace PgnFileTools
                 {
                     move.PromotionPiece = match.Groups[Promotionpiece].Value.Length == 0 ? null : PieceType.GetFor(match.Groups[Promotionpiece].Value[0]);
                     move.IsPromotion = move.PromotionPiece != null;
-                    if (move.IsCapture)
-                    {
-                        move.IsEnPassantCapture = !match.Groups[EnPassant].Value.IsNullOrEmpty();
-                    }
+                }
+                if (move.IsCapture)
+                {
+                    move.IsEnPassantCapture = !match.Groups[EnPassant].Value.IsNullOrEmpty();
                 }
                 if (!move.PieceType.IsLegal(new Position
                     {

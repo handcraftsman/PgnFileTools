@@ -345,6 +345,31 @@ namespace PgnFileToolsTests
         }
 
         [Test]
+        public void Should_be_able_to_parse_non_pawn_capture_en_passant__Bxg3ep()
+        {
+            const string move = "Bxg3ep";
+            var algebraic = _parser.Parse(move);
+            Verify(algebraic, new Move
+                {
+                    PieceType = PieceType.Bishop,
+                    SourceFile = null,
+                    SourceRow = null,
+                    DestinationFile = File.G,
+                    DestinationRow = Row.Row3,
+                    IsCapture = true,
+                    IsEnPassantCapture = true,
+                    IsPromotion = false,
+                    PromotionPiece = null,
+                    IsCastle = false,
+                    CastleType = null,
+                    IsCheck = false,
+                    IsDoubleCheck = false,
+                    IsMate = false,
+                    HasError = false
+                });
+        }
+
+        [Test]
         public void Should_be_able_to_parse_pawn_capture__hxg6()
         {
             const string move = "hxg6";

@@ -30,6 +30,16 @@ namespace PgnFileToolsTests
             }
 
             [Test]
+            public void Given_a_move_representing__Bishop_captures_g3_en_passant__should_return__Bxg3ep()
+            {
+                const string input = "Bxg3ep";
+                var move = _parser.Parse(input);
+                move.HasError.ShouldBeFalse();
+                var result = move.ToAlgebraicString();
+                result.ShouldBeEqualTo(input);
+            }
+
+            [Test]
             public void Given_a_move_representing__Bishop_on_Row_1_captures_d4__should_return__B1xd4()
             {
                 const string input = "B1xd4";
