@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,8 @@ namespace PgnFileTools
     public class GameInfoParser
     {
         private readonly AlgebraicMoveParser _algebraicMoveParser;
-        private readonly StringBuilder _partial;
+        private readonly Stack<StringBuilder> _moveVariations;
+        private StringBuilder _partial;
         private Func<char, GameInfo, bool> _handle;
         private int _moveNumber;
 
@@ -18,6 +20,7 @@ namespace PgnFileTools
         {
             _partial = new StringBuilder();
             _algebraicMoveParser = new AlgebraicMoveParser();
+            _moveVariations = new Stack<StringBuilder>();
         }
 
         private static bool Done(char ch, GameInfo gameInfo)
@@ -190,11 +193,28 @@ namespace PgnFileTools
 
         private bool HandleMoveVariation(char ch, GameInfo gameInfo)
         {
+            if (ch == '(')
+            {
+                _moveVariations.Push(_partial);
+                _partial = new StringBuilder();
+                _partial.Append(ch);
+                return true;
+            }
             if (ch == ')')
             {
-                gameInfo.Moves.Last().Variation = _partial.ToString();
-                _partial.Length = 0;
-                _handle = HandleMoveText;
+                if (_moveVariations.Count == 0)
+                {
+                    gameInfo.Moves.Last().Variation = _partial.ToString();
+                    _partial.Length = 0;
+                    _handle = HandleMoveText;
+                }
+                else
+                {
+                    var temp = _partial;
+                    _partial = _moveVariations.Pop();
+                    _partial.Append(temp);
+                    _partial.Append(ch);
+                }
                 return true;
             }
             _partial.Append(ch);
@@ -219,6 +239,7 @@ namespace PgnFileTools
         {
             _partial.Length = 0;
             _handle = HandleHeaderStart;
+            _moveVariations.Clear();
 
             var gameInfo = new GameInfo();
             if (source.GenerateFrom().Select(ch => _handle(ch, gameInfo)).Any(success => !success))
