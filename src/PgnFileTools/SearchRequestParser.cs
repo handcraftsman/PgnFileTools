@@ -57,6 +57,14 @@ namespace PgnFileTools
                     _handle = HandleHeaderValue;
                     break;
                 }
+                case '$':
+                {
+                    state.Header = _token.ToString();
+                    state.HeaderMatchType = HeaderMatchType.EndsWith;
+                    _token.Length = 0;
+                    _handle = HandleHeaderValue;
+                    break;
+                }
                 default:
                     _token.Append(ch);
                     break;
@@ -101,6 +109,9 @@ namespace PgnFileTools
                 case HeaderMatchType.StartsWith:
                     state.Func = state.Func.AndWith(x => x.Headers.Any(y => y.Key.Equals(header, StringComparison.InvariantCultureIgnoreCase) && y.Value.StartsWith(value)));
                     break;
+                case HeaderMatchType.EndsWith:
+                    state.Func = state.Func.AndWith(x => x.Headers.Any(y => y.Key.Equals(header, StringComparison.InvariantCultureIgnoreCase) && y.Value.EndsWith(value)));
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -109,7 +120,8 @@ namespace PgnFileTools
         private enum HeaderMatchType
         {
             Equal,
-            StartsWith
+            StartsWith,
+            EndsWith
         }
 
         private class State
