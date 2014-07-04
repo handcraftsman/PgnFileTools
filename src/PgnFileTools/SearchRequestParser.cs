@@ -65,6 +65,14 @@ namespace PgnFileTools
                     _handle = HandleHeaderValue;
                     break;
                 }
+                case '~':
+                {
+                    state.Header = _token.ToString();
+                    state.HeaderMatchType = HeaderMatchType.Contains;
+                    _token.Length = 0;
+                    _handle = HandleHeaderValue;
+                    break;
+                }
                 default:
                     _token.Append(ch);
                     break;
@@ -112,6 +120,9 @@ namespace PgnFileTools
                 case HeaderMatchType.EndsWith:
                     state.Func = state.Func.AndWith(x => x.Headers.Any(y => y.Key.Equals(header, StringComparison.InvariantCultureIgnoreCase) && y.Value.EndsWith(value)));
                     break;
+                case HeaderMatchType.Contains:
+                    state.Func = state.Func.AndWith(x => x.Headers.Any(y => y.Key.Equals(header, StringComparison.InvariantCultureIgnoreCase) && y.Value.Contains(value)));
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -121,7 +132,8 @@ namespace PgnFileTools
         {
             Equal,
             StartsWith,
-            EndsWith
+            EndsWith,
+            Contains
         }
 
         private class State
