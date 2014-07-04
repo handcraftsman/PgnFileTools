@@ -58,6 +58,7 @@
     <Compile Include="GameInfo.cs" />
     <Compile Include="GameInfoParser.cs" />
     <Compile Include="Move.cs" />
+    <Compile Include="PgnStreamReader.cs" />
     <Compile Include="Position.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Constants\Row.cs" />
