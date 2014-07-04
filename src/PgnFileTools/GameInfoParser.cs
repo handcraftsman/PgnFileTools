@@ -12,9 +12,9 @@ namespace PgnFileTools
     {
         private readonly AlgebraicMoveParser _algebraicMoveParser;
         private readonly Stack<StringBuilder> _moveVariations;
-        private StringBuilder _partial;
         private Func<char, GameInfo, bool> _handle;
         private int _moveNumber;
+        private StringBuilder _partial;
 
         public GameInfoParser()
         {
@@ -242,10 +242,20 @@ namespace PgnFileTools
             _moveVariations.Clear();
 
             var gameInfo = new GameInfo();
-            if (source.GenerateFrom().Select(ch => _handle(ch, gameInfo)).Any(success => !success))
+            foreach (var ch in source.GenerateFrom())
             {
-                gameInfo.HasError = true;
+                var success = _handle(ch, gameInfo);
+                if (!success)
+                {
+                    gameInfo.HasError = true;
+                    break;
+                }
+                if (_handle == Done)
+                {
+                    break;
+                }
             }
+
             if (!new Func<char, GameInfo, bool>[] { Done }.Contains(_handle))
             {
                 gameInfo.HasError = true;

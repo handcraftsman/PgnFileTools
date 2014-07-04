@@ -8,8 +8,11 @@ namespace PgnFileTools
         public IEnumerable<GameInfo> Read(TextReader reader)
         {
             var parser = new GameInfoParser();
-            var game = parser.Parse(reader);
-            yield return game;
+            while (reader.Peek() != -1)
+            {
+                var game = parser.Parse(reader);
+                yield return game;
+            }
         }
     }
 }

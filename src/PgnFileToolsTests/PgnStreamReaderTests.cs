@@ -22,11 +22,19 @@ namespace PgnFileToolsTests
             }
 
             [Test]
-            public void Given_a_stream_that_contains_one_game__should_return_the_game()
+            public void Given_a_stream_that_contains_1_game__should_read_the_game()
             {
                 const string input = "[Result \"1-0\"]\n1.a4 1-0\n";
-                var result = _reader.Read(input.CreateStream()).ToList();
-                result.Count.ShouldBeEqualTo(1);
+                var games = _reader.Read(input.CreateStream()).ToList();
+                games.Count.ShouldBeEqualTo(1);
+            }
+
+            [Test]
+            public void Given_a_stream_that_contains_2_games__should_read_the_games()
+            {
+                const string input = "[Result \"1-0\"]\n1.a4 1-0\n" + "[Result \"1-0\"]\n1.d4 d5 1-0\n";
+                var games = _reader.Read(input.CreateStream()).ToList();
+                games.Count.ShouldBeEqualTo(2);
             }
         }
     }
