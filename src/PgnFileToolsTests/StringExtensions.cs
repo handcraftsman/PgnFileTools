@@ -9,7 +9,7 @@ namespace PgnFileToolsTests
     {
         private static readonly Random random = new Random();
 
-        public static StreamReader CreateStream(this string input)
+        public static TextReader CreateTextReader(this string input)
         {
             return new StreamReader(new MemoryStream(Encoding.ASCII.GetBytes(input)));
         }

@@ -66,6 +66,7 @@
     <Compile Include="MoveTests.cs" />
     <Compile Include="PgnStreamReaderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SearchRequestParserTests.cs" />
     <Compile Include="StringExtensions.cs" />
   </ItemGroup>
   <ItemGroup>

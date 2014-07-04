@@ -21,7 +21,7 @@ namespace PgnFileToolsTests
         public void Given_a_GOOD_MOVE_symbolic_annotation_after_a_move_text__should_add_the_annotation_to_the_Move_information()
         {
             const string input = "[Result \"1-0\"]\n1.a4! 1-0\n";
-            var result = _parser.Parse(input.CreateStream());
+            var result = _parser.Parse(input.CreateTextReader());
             result.Headers.Count.ShouldBeEqualTo(1);
             result.Headers["Result"].ShouldBeEqualTo("1-0");
             result.HasError.ShouldBeFalse();
@@ -34,7 +34,7 @@ namespace PgnFileToolsTests
         public void Given_a_POOR_MOVE_symbolic_annotation_after_a_move_text__should_add_the_annotation_to_the_Move_information()
         {
             const string input = "[Result \"1-0\"]\n1.a4? 1-0\n";
-            var result = _parser.Parse(input.CreateStream());
+            var result = _parser.Parse(input.CreateTextReader());
             result.Headers.Count.ShouldBeEqualTo(1);
             result.Headers["Result"].ShouldBeEqualTo("1-0");
             result.HasError.ShouldBeFalse();
@@ -47,7 +47,7 @@ namespace PgnFileToolsTests
         public void Given_a_QUESTIONABLE_MOVE_symbolic_annotation_after_a_move_text__should_add_the_annotation_to_the_Move_information()
         {
             const string input = "[Result \"1-0\"]\n1.a4?! 1-0\n";
-            var result = _parser.Parse(input.CreateStream());
+            var result = _parser.Parse(input.CreateTextReader());
             result.Headers.Count.ShouldBeEqualTo(1);
             result.Headers["Result"].ShouldBeEqualTo("1-0");
             result.HasError.ShouldBeFalse();
@@ -60,7 +60,7 @@ namespace PgnFileToolsTests
         public void Given_a_SPECULATIVE_MOVE_symbolic_annotation_after_a_move_text__should_add_the_annotation_to_the_Move_information()
         {
             const string input = "[Result \"1-0\"]\n1.a4!? 1-0\n";
-            var result = _parser.Parse(input.CreateStream());
+            var result = _parser.Parse(input.CreateTextReader());
             result.Headers.Count.ShouldBeEqualTo(1);
             result.Headers["Result"].ShouldBeEqualTo("1-0");
             result.HasError.ShouldBeFalse();
@@ -73,7 +73,7 @@ namespace PgnFileToolsTests
         public void Given_a_VERY_GOOD_MOVE_symbolic_annotation_after_a_move_text__should_add_the_annotation_to_the_Move_information()
         {
             const string input = "[Result \"1-0\"]\n1.a4!! 1-0\n";
-            var result = _parser.Parse(input.CreateStream());
+            var result = _parser.Parse(input.CreateTextReader());
             result.Headers.Count.ShouldBeEqualTo(1);
             result.Headers["Result"].ShouldBeEqualTo("1-0");
             result.HasError.ShouldBeFalse();
@@ -86,7 +86,7 @@ namespace PgnFileToolsTests
         public void Given_a_VERY_POOR_MOVE_symbolic_annotation_after_a_move_text__should_add_the_annotation_to_the_Move_information()
         {
             const string input = "[Result \"1-0\"]\n1.a4?? 1-0\n";
-            var result = _parser.Parse(input.CreateStream());
+            var result = _parser.Parse(input.CreateTextReader());
             result.Headers.Count.ShouldBeEqualTo(1);
             result.Headers["Result"].ShouldBeEqualTo("1-0");
             result.HasError.ShouldBeFalse();
@@ -99,7 +99,7 @@ namespace PgnFileToolsTests
         public void Given_a_comment_after_a_move_text__should_add_the_comment_to_the_Move_information()
         {
             const string input = "[Result \"1-0\"]\n1.a4 {foo} 1-0\n";
-            var result = _parser.Parse(input.CreateStream());
+            var result = _parser.Parse(input.CreateTextReader());
             result.Headers.Count.ShouldBeEqualTo(1);
             result.Headers["Result"].ShouldBeEqualTo("1-0");
             result.HasError.ShouldBeFalse();
@@ -112,7 +112,7 @@ namespace PgnFileToolsTests
         public void Given_a_comment_between_the_last_header_and_first_move_number__should_add_the_comment_to_the_Game_information()
         {
             const string input = "[Result \"1-0\"]\n {foo}\n1.a4 1-0\n";
-            var result = _parser.Parse(input.CreateStream());
+            var result = _parser.Parse(input.CreateTextReader());
             result.Headers.Count.ShouldBeEqualTo(1);
             result.Headers["Result"].ShouldBeEqualTo("1-0");
             result.HasError.ShouldBeFalse();
@@ -125,7 +125,7 @@ namespace PgnFileToolsTests
         public void Given_a_game_that_does_not_end_with_the_Result_header_value__should_set__HasError()
         {
             const string input = "[Result \"1-0\"]\n1.a4 ";
-            var result = _parser.Parse(input.CreateStream());
+            var result = _parser.Parse(input.CreateTextReader());
             result.Headers.Count.ShouldBeEqualTo(1);
             result.Headers["Result"].ShouldBeEqualTo("1-0");
             result.HasError.ShouldBeTrue();
@@ -135,7 +135,7 @@ namespace PgnFileToolsTests
         public void Given_a_move_variation_after_a_move_text__should_add_the_variation_to_the_Move_information()
         {
             const string input = "[Result \"1-0\"]\n6. f4 e6 (6... b5) 1-0\n";
-            var result = _parser.Parse(input.CreateStream());
+            var result = _parser.Parse(input.CreateTextReader());
             result.Headers.Count.ShouldBeEqualTo(1);
             result.Headers["Result"].ShouldBeEqualTo("1-0");
             result.HasError.ShouldBeFalse();
@@ -150,7 +150,7 @@ namespace PgnFileToolsTests
         public void Given_a_numbered_annotation_after_a_move_text__should_add_the_annotation_to_the_Move_information()
         {
             const string input = "[Result \"1-0\"]\n1.a4 $2 1-0\n";
-            var result = _parser.Parse(input.CreateStream());
+            var result = _parser.Parse(input.CreateTextReader());
             result.Headers.Count.ShouldBeEqualTo(1);
             result.Headers["Result"].ShouldBeEqualTo("1-0");
             result.HasError.ShouldBeFalse();
@@ -163,7 +163,7 @@ namespace PgnFileToolsTests
         public void Given_a_recursive_move_variation_after_a_move_text__should_add_the_variation_to_the_Move_information()
         {
             const string input = "[Result \"1-0\"]\n6. f4 e6 (6... b5 (6... b4)) 1-0\n";
-            var result = _parser.Parse(input.CreateStream());
+            var result = _parser.Parse(input.CreateTextReader());
             result.Headers.Count.ShouldBeEqualTo(1);
             result.Headers["Result"].ShouldBeEqualTo("1-0");
             result.HasError.ShouldBeFalse();
@@ -178,7 +178,7 @@ namespace PgnFileToolsTests
         public void Given_no_moves__the_game_should_be_marked__HasError()
         {
             const string input = "[Result \"0-1\"]";
-            var result = _parser.Parse(input.CreateStream());
+            var result = _parser.Parse(input.CreateTextReader());
             result.HasError.ShouldBeTrue();
         }
 
@@ -186,7 +186,7 @@ namespace PgnFileToolsTests
         public void Given_one_header_and_one_half_move__should_parse_the_header_and_move()
         {
             const string input = "[Result \"1-0\"]\n1.a4 ";
-            var result = _parser.Parse(input.CreateStream());
+            var result = _parser.Parse(input.CreateTextReader());
             result.Headers.Count.ShouldBeEqualTo(1);
             result.Headers["Result"].ShouldBeEqualTo("1-0");
             result.HasError.ShouldBeTrue();
@@ -198,7 +198,7 @@ namespace PgnFileToolsTests
         public void Given_one_header_and_one_move_and_result__should_parse_the_header_and_move_and_set_HasError_to_false()
         {
             const string input = "[Result \"1-0\"]\n1.a4 1-0\n";
-            var result = _parser.Parse(input.CreateStream());
+            var result = _parser.Parse(input.CreateTextReader());
             result.Headers.Count.ShouldBeEqualTo(1);
             result.Headers["Result"].ShouldBeEqualTo("1-0");
             result.HasError.ShouldBeFalse();
@@ -210,7 +210,7 @@ namespace PgnFileToolsTests
         public void Given_one_header_and_one_ply__should_parse_the_header_and_moves()
         {
             const string input = "[Result \"1-0\"]\n1.d4 d5 1-0\n";
-            var result = _parser.Parse(input.CreateStream());
+            var result = _parser.Parse(input.CreateTextReader());
             result.Headers.Count.ShouldBeEqualTo(1);
             result.Headers["Result"].ShouldBeEqualTo("1-0");
             result.HasError.ShouldBeFalse();
@@ -227,7 +227,7 @@ namespace PgnFileToolsTests
         public void Given_one_header_and_two_plys__should_parse_the_header_and_moves()
         {
             const string input = "[Result \"1-0\"]\n1.e4 c6\n2.d4 d5 1-0\n";
-            var result = _parser.Parse(input.CreateStream());
+            var result = _parser.Parse(input.CreateTextReader());
             result.Headers.Count.ShouldBeEqualTo(1);
             result.Headers["Result"].ShouldBeEqualTo("1-0");
             result.HasError.ShouldBeFalse();
@@ -250,7 +250,7 @@ namespace PgnFileToolsTests
         public void Given_only_a_header_line__should_parse_the_header_line()
         {
             const string input = "[Result \"0-1\"]";
-            var result = _parser.Parse(input.CreateStream());
+            var result = _parser.Parse(input.CreateTextReader());
             result.Headers["Result"].ShouldBeEqualTo("0-1");
             result.HasError.ShouldBeTrue();
         }
@@ -259,7 +259,7 @@ namespace PgnFileToolsTests
         public void Given_two_header_lines__should_parse_the_header_lines()
         {
             const string input = "[Result \"0-1\"]\n[Date \"2014.06.19\"]";
-            var result = _parser.Parse(input.CreateStream());
+            var result = _parser.Parse(input.CreateTextReader());
             result.Headers.Count.ShouldBeEqualTo(2);
             result.Headers["Result"].ShouldBeEqualTo("0-1");
             result.Headers["Date"].ShouldBeEqualTo("2014.06.19");
@@ -270,7 +270,7 @@ namespace PgnFileToolsTests
         public void Given_whitespace_between_the_move_number_and_move_text__should_parse_the_move()
         {
             const string input = "[Result \"1-0\"]\n1. a4 1-0\n";
-            var result = _parser.Parse(input.CreateStream());
+            var result = _parser.Parse(input.CreateTextReader());
             result.Headers.Count.ShouldBeEqualTo(1);
             result.Headers["Result"].ShouldBeEqualTo("1-0");
             result.HasError.ShouldBeFalse();
