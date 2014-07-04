@@ -24,11 +24,9 @@ namespace PgnFileTools
         {
             if (ch == '\r' || ch == '\n')
             {
-                var value = _token.ToString();
-                _token.Length = 0;
-                var header = state.Header;
+                UpdateFunction(state, _token.ToString());
                 state.Header = null;
-                state.Func = state.Func.AndWith(x => x.Headers.Any(y => y.Key.Equals(header, StringComparison.InvariantCultureIgnoreCase) && y.Value == value));
+                _token.Length = 0;
                 _handle = HandleToken;
                 return true;
             }
@@ -46,6 +44,15 @@ namespace PgnFileTools
                 case '=':
                 {
                     state.Header = _token.ToString();
+                    state.HeaderMatchType = HeaderMatchType.Equal;
+                    _token.Length = 0;
+                    _handle = HandleHeaderValue;
+                    break;
+                }
+                case '^':
+                {
+                    state.Header = _token.ToString();
+                    state.HeaderMatchType = HeaderMatchType.StartsWith;
                     _token.Length = 0;
                     _handle = HandleHeaderValue;
                     break;
@@ -83,11 +90,34 @@ namespace PgnFileTools
                 };
         }
 
+        private static void UpdateFunction(State state, string value)
+        {
+            var header = state.Header;
+            switch (state.HeaderMatchType)
+            {
+                case HeaderMatchType.Equal:
+                    state.Func = state.Func.AndWith(x => x.Headers.Any(y => y.Key.Equals(header, StringComparison.InvariantCultureIgnoreCase) && y.Value == value));
+                    break;
+                case HeaderMatchType.StartsWith:
+                    state.Func = state.Func.AndWith(x => x.Headers.Any(y => y.Key.Equals(header, StringComparison.InvariantCultureIgnoreCase) && y.Value.StartsWith(value)));
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        private enum HeaderMatchType
+        {
+            Equal,
+            StartsWith
+        }
+
         private class State
         {
             public string ErrorMessage { get; set; }
             public Expression<Func<GameInfo, bool>> Func { get; set; }
             public string Header { get; set; }
+            public HeaderMatchType HeaderMatchType { get; set; }
         }
     }
 }
