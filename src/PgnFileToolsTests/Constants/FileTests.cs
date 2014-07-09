@@ -129,7 +129,88 @@ namespace PgnFileToolsTests.Constants
         }
 
         [TestFixture]
-        public class When_asked_to_GetFor
+        public class When_asked_to_GetFor_a_File_index
+        {
+            [Test]
+            public void Given__0__should_get__null()
+            {
+                var result = File.GetFor(0);
+                result.ShouldBeNull();
+            }
+
+            [Test]
+            public void Given__1__should_get__File_A()
+            {
+                var result = File.GetFor(1);
+                result.ShouldBeEqualTo(File.A);
+            }
+
+            [Test]
+            public void Given__2__should_get__File_B()
+            {
+                var result = File.GetFor(2);
+                result.ShouldBeEqualTo(File.B);
+            }
+
+            [Test]
+            public void Given__3__should_get__File_C()
+            {
+                var result = File.GetFor(3);
+                result.ShouldBeEqualTo(File.C);
+            }
+
+            [Test]
+            public void Given__4__should_get__File_D()
+            {
+                var result = File.GetFor(4);
+                result.ShouldBeEqualTo(File.D);
+            }
+
+            [Test]
+            public void Given__5__should_get__File_E()
+            {
+                var result = File.GetFor(5);
+                result.ShouldBeEqualTo(File.E);
+            }
+
+            [Test]
+            public void Given__6__should_get__File_F()
+            {
+                var result = File.GetFor(6);
+                result.ShouldBeEqualTo(File.F);
+            }
+
+            [Test]
+            public void Given__7__should_get__File_G()
+            {
+                var result = File.GetFor(7);
+                result.ShouldBeEqualTo(File.G);
+            }
+
+            [Test]
+            public void Given__8__should_get__File_H()
+            {
+                var result = File.GetFor(8);
+                result.ShouldBeEqualTo(File.H);
+            }
+
+            [Test]
+            public void Given__9__should_get__null()
+            {
+                var result = File.GetFor(9);
+                result.ShouldBeNull();
+            }
+
+            [Test]
+            public void Given__NEGATIVE_1__should_get__null()
+            {
+                var result = File.GetFor(-1);
+                result.ShouldBeNull();
+            }
+        }
+
+        [TestFixture]
+        public class When_asked_to_GetFor_a_File_letter
         {
             [Test]
             public void Given__A__should_get__null()

@@ -18,6 +18,7 @@ namespace PgnFileTools
             Index = index;
             Symbol = token + "";
             Add(Symbol, this);
+            Add(index+"", this);
         }
 
         public int Index { get; private set; }
@@ -28,6 +29,11 @@ namespace PgnFileTools
         {
             var file = GetFor(ch + "");
             return (file != null && file.Symbol[0] == ch) ? file : null;
+        }
+
+        public static File GetFor(int index)
+        {
+            return GetFor(index + "");
         }
     }
 }

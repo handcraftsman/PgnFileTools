@@ -5,6 +5,7 @@ namespace PgnFileTools
 {
     public class FenParser
     {
+        private Func<char, State, bool> _handle;
         public bool HandleRow(char ch, State state)
         {
             var pieceType = PieceType.GetForFen(ch);
@@ -23,6 +24,12 @@ namespace PgnFileTools
                     });
                 return true;
             }
+            if (Char.IsDigit(ch))
+            {
+                var filesToSkip = " 12345678".IndexOf(ch);
+                state.File = File.GetFor(state.File.Index + filesToSkip);
+                return true;
+            }
             return false;
         }
 
@@ -34,8 +41,11 @@ namespace PgnFileTools
                     Row = Row.Row8,
                     File = File.A
                 };
-            HandleRow(fen[0], state);
-
+            _handle = HandleRow;
+            foreach (var success in fen.Select(ch => _handle(ch, state)).Where(success => !success))
+            {
+                break;
+            }
 
             return state.GameState;
         }
