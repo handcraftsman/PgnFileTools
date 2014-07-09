@@ -66,11 +66,11 @@ namespace PgnFileToolsTests
         }
 
         [Test]
-        public void Given__w__in_the_active_color_field__should_indicate_White_to_move()
+        public void Given__b__in_the_active_color_field__should_indicate_Black_to_move()
         {
-            const string input = "8/8/8/8/8/8/8/7R w - - 0 1";
+            const string input = "8/8/8/8/8/8/8/7R b - - 0 1";
             var position = _parser.Parse(input);
-            position.ToMove.ShouldBeEqualTo(PieceColor.White);
+            position.ToMove.ShouldBeEqualTo(PieceColor.Black);
         }
 
         [Test]
@@ -83,6 +83,14 @@ namespace PgnFileToolsTests
             king.PieceColor.ShouldBeEqualTo(PieceColor.Black);
             king.Position.File.ShouldBeEqualTo(File.A);
             king.Position.Row.ShouldBeEqualTo(Row.Row8);
+        }
+
+        [Test]
+        public void Given__w__in_the_active_color_field__should_indicate_White_to_move()
+        {
+            const string input = "8/8/8/8/8/8/8/7R w - - 0 1";
+            var position = _parser.Parse(input);
+            position.ToMove.ShouldBeEqualTo(PieceColor.White);
         }
     }
 }
