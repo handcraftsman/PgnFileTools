@@ -6,6 +6,7 @@ namespace PgnFileTools
     public class FenParser
     {
         private Func<char, State, bool> _handle;
+
         public bool HandleRow(char ch, State state)
         {
             var pieceType = PieceType.GetForFen(ch);
@@ -28,7 +29,13 @@ namespace PgnFileTools
             if (Char.IsDigit(ch))
             {
                 var filesToSkip = " 12345678".IndexOf(ch);
-                state.File = File.GetFor(state.File.Index + filesToSkip);
+                state.File = File.GetFor(state.File.Index + filesToSkip) ?? File.A;
+                return true;
+            }
+            if (ch == '/')
+            {
+                state.Row = Row.GetFor(state.Row.Index - 1);
+                state.File = File.A;
                 return true;
             }
             return false;

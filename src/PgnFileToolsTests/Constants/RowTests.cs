@@ -189,7 +189,7 @@ namespace PgnFileToolsTests.Constants
         }
 
         [TestFixture]
-        public class When_asked_to_GetFor
+        public class When_asked_to_GetFor_with_an_index_character
         {
             [Test]
             public void Given__1__should_get__Row_1()
@@ -244,6 +244,66 @@ namespace PgnFileToolsTests.Constants
             public void Given__8__should_get__Row_8()
             {
                 var result = Row.GetFor('8');
+                result.ShouldBeEqualTo(Row.Row8);
+            }
+        }
+
+        [TestFixture]
+        public class When_asked_to_GetFor_with_an_index_number
+        {
+            [Test]
+            public void Given__1__should_get__Row_1()
+            {
+                var result = Row.GetFor(1);
+                result.ShouldBeEqualTo(Row.Row1);
+            }
+
+            [Test]
+            public void Given__2__should_get__Row_2()
+            {
+                var result = Row.GetFor(2);
+                result.ShouldBeEqualTo(Row.Row2);
+            }
+
+            [Test]
+            public void Given__3__should_get__Row_3()
+            {
+                var result = Row.GetFor(3);
+                result.ShouldBeEqualTo(Row.Row3);
+            }
+
+            [Test]
+            public void Given__4__should_get__Row_4()
+            {
+                var result = Row.GetFor(4);
+                result.ShouldBeEqualTo(Row.Row4);
+            }
+
+            [Test]
+            public void Given__5__should_get__Row_5()
+            {
+                var result = Row.GetFor(5);
+                result.ShouldBeEqualTo(Row.Row5);
+            }
+
+            [Test]
+            public void Given__6__should_get__Row_6()
+            {
+                var result = Row.GetFor(6);
+                result.ShouldBeEqualTo(Row.Row6);
+            }
+
+            [Test]
+            public void Given__7__should_get__Row_7()
+            {
+                var result = Row.GetFor(7);
+                result.ShouldBeEqualTo(Row.Row7);
+            }
+
+            [Test]
+            public void Given__8__should_get__Row_8()
+            {
+                var result = Row.GetFor(8);
                 result.ShouldBeEqualTo(Row.Row8);
             }
         }

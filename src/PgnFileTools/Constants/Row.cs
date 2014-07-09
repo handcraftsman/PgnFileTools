@@ -1,3 +1,5 @@
+using System;
+
 using MvbaCore;
 
 namespace PgnFileTools
@@ -29,6 +31,11 @@ namespace PgnFileTools
         public static Row GetFor(char ch)
         {
             return GetFor(ch + "");
+        }
+
+        public static Row GetFor(int index)
+        {
+            return GetFor(index + "");
         }
     }
 }

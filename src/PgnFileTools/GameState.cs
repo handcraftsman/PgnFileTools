@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace PgnFileTools
 {
@@ -8,14 +6,23 @@ namespace PgnFileTools
     {
         public GameState()
         {
+            White = new List<Square>();
             Black = new List<Square>();
         }
 
-        public List<Square> Black{ get; private set; }
+        public List<Square> Black { get; private set; }
+        public List<Square> White { get; private set; }
 
         public void Add(Square square)
         {
-            Black.Add(square);
+            if (square.PieceColor == PieceColor.Black)
+            {
+                Black.Add(square);
+            }
+            else if (square.PieceColor == PieceColor.White)
+            {
+                White.Add(square);
+            }
         }
     }
 }
