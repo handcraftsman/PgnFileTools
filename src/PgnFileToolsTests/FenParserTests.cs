@@ -56,13 +56,21 @@ namespace PgnFileToolsTests
         [Test]
         public void Given__K7__on_row_7__should_correctly_decode_the_piece()
         {
-            const string input = "8/K7/8/8/8/8/8 w - - 0 1";
+            const string input = "8/K7/8/8/8/8/8/8 w - - 0 1";
             var position = _parser.Parse(input);
             position.White.Count.ShouldBeEqualTo(1);
             var king = position.White.Single();
             king.PieceColor.ShouldBeEqualTo(PieceColor.White);
             king.Position.File.ShouldBeEqualTo(File.A);
             king.Position.Row.ShouldBeEqualTo(Row.Row7);
+        }
+
+        [Test]
+        public void Given__w__in_the_active_color_field__should_indicate_White_to_move()
+        {
+            const string input = "8/8/8/8/8/8/8/7R w - - 0 1";
+            var position = _parser.Parse(input);
+            position.ToMove.ShouldBeEqualTo(PieceColor.White);
         }
 
         [Test]

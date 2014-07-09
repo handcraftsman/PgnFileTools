@@ -7,6 +7,17 @@ namespace PgnFileTools
     {
         private Func<char, State, bool> _handle;
 
+        private bool HandleActiveColor(char ch, State state)
+        {
+            var color = PieceColor.GetFor(ch);
+            if (color != null)
+            {
+                state.GameState.ToMove = color;
+                return true;
+            }
+            return false;
+        }
+
         public bool HandleRow(char ch, State state)
         {
             var pieceType = PieceType.GetForFen(ch);
@@ -36,6 +47,11 @@ namespace PgnFileTools
             {
                 state.Row = Row.GetFor(state.Row.Index - 1);
                 state.File = File.A;
+                return true;
+            }
+            if (ch == ' ')
+            {
+                _handle = HandleActiveColor;
                 return true;
             }
             return false;

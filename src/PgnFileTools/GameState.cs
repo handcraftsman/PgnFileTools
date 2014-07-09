@@ -11,6 +11,7 @@ namespace PgnFileTools
         }
 
         public List<Square> Black { get; private set; }
+        public PieceColor ToMove { get; set; }
         public List<Square> White { get; private set; }
 
         public void Add(Square square)

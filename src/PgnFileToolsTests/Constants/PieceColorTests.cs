@@ -95,5 +95,23 @@ namespace PgnFileToolsTests.Constants
                 result.ShouldBeEqualTo(PieceColor.Black);
             }
         }
+
+        [TestFixture]
+        public class When_asked_to_GetFor_a_color_symbol
+        {
+            [Test]
+            public void Given__b__should_get__Black()
+            {
+                var result = PieceColor.GetFor('b');
+                result.ShouldBeEqualTo(PieceColor.Black);
+            }
+
+            [Test]
+            public void Given__w__should_get__White()
+            {
+                var result = PieceColor.GetFor('w');
+                result.ShouldBeEqualTo(PieceColor.White);
+            }
+        }
     }
 }
