@@ -22,6 +22,7 @@ namespace PgnFileTools
                                 Row = state.Row
                             }
                     });
+                state.File = File.GetFor(state.File.Index + 1);
                 return true;
             }
             if (Char.IsDigit(ch))
