@@ -52,18 +52,22 @@
     <Compile Include="AlgebraicMoveParser.cs" />
     <Compile Include="Constants\CastleType.cs" />
     <Compile Include="Constants\File.cs" />
+    <Compile Include="Constants\PieceColor.cs" />
     <Compile Include="Constants\PieceType.cs" />
     <Compile Include="Constants\SymbolicMoveAnnotation.cs" />
     <Compile Include="Extensions\ExpressionExtensions.cs" />
     <Compile Include="Extensions\TextReaderExtensions.cs" />
+    <Compile Include="FenParser.cs" />
     <Compile Include="GameInfo.cs" />
     <Compile Include="GameInfoParser.cs" />
+    <Compile Include="GameState.cs" />
     <Compile Include="Move.cs" />
     <Compile Include="PgnStreamReader.cs" />
     <Compile Include="Position.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Constants\Row.cs" />
     <Compile Include="SearchRequestParser.cs" />
+    <Compile Include="Square.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
