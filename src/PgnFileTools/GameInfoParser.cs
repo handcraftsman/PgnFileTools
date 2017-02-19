@@ -48,10 +48,23 @@ namespace PgnFileTools
                 _partial.Append(ch);
                 return true;
             }
-            var headerParts = _partial.ToString().Split(' ');
+            var header = _partial.ToString();
             _partial.Length = 0;
-            gameInfo.Headers.Add(headerParts[0], headerParts[1].Trim('"'));
-
+            var quoteLoc = header.IndexOf('"');
+            string label;
+            string value;
+            if (quoteLoc != -1)
+            {
+                label = header.Substring(0, quoteLoc).TrimEnd();
+                value = header.Substring(quoteLoc);
+            }
+            else
+            {
+                var headerParts = header.Split(' ');
+                label = headerParts[0];
+                value = headerParts[1];
+            }
+            gameInfo.Headers.Add(label, value.Trim('"'));
             _handle = HandleHeaderStart;
             return true;
         }

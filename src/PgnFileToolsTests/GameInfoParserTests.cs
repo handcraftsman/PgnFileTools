@@ -277,5 +277,13 @@ namespace PgnFileToolsTests
             result.Moves.Count.ShouldBeEqualTo(1);
             result.Moves[0].ToAlgebraicString().ShouldBeEqualTo("a4");
         }
+
+        [Test]
+        public void Given_a_header_line_with_spaces__should_get_whole_header_body()
+        {
+            const string input = "[Event \"World Blitz 2016\"]";
+            var result = _parser.Parse(input.CreateTextReader());
+            result.Headers["Event"].ShouldBeEqualTo("World Blitz 2016");
+        }
     }
 }
